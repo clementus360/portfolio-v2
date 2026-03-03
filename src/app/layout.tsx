@@ -28,9 +28,26 @@ const Nexa = localFont({
 })
 
 
+// add favicon and OG image in public/ and reference here if needed
 export const metadata: Metadata = {
   title: "Ishimwe Clement",
   description: "Portfolio of Clementus360 — jack of all trades in design & development.",
+  openGraph: {
+    title: "Ishimwe Clement",
+    description: "Portfolio of Clementus360 — jack of all trades in design & development.",
+    url: "https://ishimwe.dev",
+    siteName: "Ishimwe Clement Portfolio",
+    images: [
+      {
+        url: "https://res.cloudinary.com/dpfonnjv3/image/upload/v1772529878/twitter_hvlaq0.png",
+        width: 1200,
+        height: 630,
+        alt: "Ishimwe Clement Portfolio Preview",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
