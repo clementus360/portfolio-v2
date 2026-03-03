@@ -6,16 +6,31 @@
   --color-primary: #CF0F0F;
   --font-roboto: "Roboto", sans-serif;
   --font-sacramento: "Sacramento", cursive;
+  --menu-bg: rgba(255, 255, 255, 0.85);
+  --menu-divider: rgba(0, 0, 0, 0.1);
+  --menu-border: rgba(0, 0, 0, 0.2);
+  --weather-card-bg: rgba(255, 255, 255, 0.3);
+  --weather-card-border: rgba(255, 255, 255, 0.8);
 }
 
 html.day {
   --background: #E0E0E0;
   --foreground: #000000;
+  --menu-bg: rgba(255, 255, 255, 0.85);
+  --menu-divider: rgba(0, 0, 0, 0.1);
+  --menu-border: rgba(0, 0, 0, 0.2);
+  --weather-card-bg: rgba(255, 255, 255, 0.3);
+  --weather-card-border: rgba(255, 255, 255, 0.8);
 }
 
 html.night {
   --background: #0d0d0d;
   --foreground: #ffffff;
+  --menu-bg: rgba(13, 13, 13, 0.9);
+  --menu-divider: rgba(255, 255, 255, 0.15);
+  --menu-border: rgba(255, 255, 255, 0.2);
+  --weather-card-bg: rgba(13, 13, 13, 0.85);
+  --weather-card-border: rgba(255, 255, 255, 0.3);
 }
 
 @theme inline {

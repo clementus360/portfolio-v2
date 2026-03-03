@@ -185,13 +185,13 @@ export default function Hero() {
     return (
         <>
             <style>{marqueeStyle}</style>
-            <section ref={heroRef} className="relative flex flex-col gap-20 items-center justify-between">
-                <div className="px-32">
-                    <div className="h-full flex items-center justify-between">
-                        <div className="flex flex-col w-full">
+            <section ref={heroRef} className="relative flex flex-col gap-8 md:gap-12 lg:gap-20 items-center justify-between pt-0">
+                <div className="px-4 md:px-16 lg:px-32 w-full">
+                    <div className="h-full flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 lg:gap-12">
+                        <div className="flex flex-col w-full lg:w-auto">
                             <h2 
                                 key={`greeting-${currentLangIndex}`}
-                                className={`font-sacramento font-bold text-4xl text-primary ${
+                                className={`font-sacramento font-bold text-2xl md:text-3xl lg:text-4xl text-primary ${
                                     animationPhase === 'glitch-out' ? 'language-glitch-out' : 
                                     animationPhase === 'glitch-in' ? 'language-glitch-in' : ''
                                 }`}
@@ -199,7 +199,7 @@ export default function Hero() {
                                 {languages[currentLangIndex].greeting}
                             </h2>
                             <h1
-                                className="text-8xl font-extrabold font-nexa transition-transform duration-200 ease-out"
+                                className="text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-extrabold font-nexa transition-transform duration-200 ease-out leading-tight"
                                 style={{
                                     transform: `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4}px, 0)`,
                                 }}
@@ -207,7 +207,7 @@ export default function Hero() {
                                 Ishimwe Clement
                                 <span 
                                     key={`suffix-${currentLangIndex}`}
-                                    className={`font-sacramento font-bold text-sm text-primary ${
+                                    className={`font-sacramento font-bold text-xs md:text-sm text-primary ml-1 ${
                                         animationPhase === 'glitch-out' ? 'language-glitch-out' : 
                                         animationPhase === 'glitch-in' ? 'language-glitch-in' : ''
                                     }`}
@@ -217,7 +217,7 @@ export default function Hero() {
                             </h1>
                         </div>
                         <p
-                            className="font-roboto font-light w-8/12 transition-transform duration-300 ease-out"
+                            className="font-roboto font-light w-full lg:w-8/12 text-sm md:text-base transition-transform duration-300 ease-out"
                             style={{
                                 transform: `translate3d(${cursorOffset.x * 2}px, ${cursorOffset.y * 2}px, 0)`,
                             }}
@@ -226,94 +226,94 @@ export default function Hero() {
                         </p>
                     </div>
                 </div>
-                <div className="relative w-screen h-40 my-8">
+                <div className="relative w-screen h-32 md:h-40 my-4 md:my-8">
                     {/* Design Strip - rotated one direction */}
-                    <div className="absolute left-0 w-[120vw] -ml-[10vw] rotate-3 flex items-center overflow-hidden bg-primary p-4 shadow-lg">
-                        <div className="marquee-container flex items-center gap-20 text-white opacity-50 whitespace-nowrap">
-                            <Figma className="w-12 h-12 flex-shrink-0" />
-                            <AdobePS className="w-12 h-12 flex-shrink-0" />
-                            <AdobeAI className="w-12 h-12 flex-shrink-0" />
-                            <AdobeID className="w-12 h-12 flex-shrink-0" />
-                            <AdobeAE className="w-12 h-12 flex-shrink-0" />
-                            <AdobePR className="w-12 h-12 flex-shrink-0" />
-                            <Figma className="w-12 h-12 flex-shrink-0" />
-                            <AdobePS className="w-12 h-12 flex-shrink-0" />
-                            <AdobeAI className="w-12 h-12 flex-shrink-0" />
-                            <AdobeID className="w-12 h-12 flex-shrink-0" />
-                            <AdobeAE className="w-12 h-12 flex-shrink-0" />
-                            <AdobePR className="w-12 h-12 flex-shrink-0" />
-                            <Figma className="w-12 h-12 flex-shrink-0" />
-                            <AdobePS className="w-12 h-12 flex-shrink-0" />
-                            <AdobeAI className="w-12 h-12 flex-shrink-0" />
-                            <AdobeID className="w-12 h-12 flex-shrink-0" />
-                            <AdobeAE className="w-12 h-12 flex-shrink-0" />
-                            <AdobePR className="w-12 h-12 flex-shrink-0" />
-                            <Figma className="w-12 h-12 flex-shrink-0" />
-                            <AdobePS className="w-12 h-12 flex-shrink-0" />
-                            <AdobeAI className="w-12 h-12 flex-shrink-0" />
-                            <AdobeID className="w-12 h-12 flex-shrink-0" />
-                            <AdobeAE className="w-12 h-12 flex-shrink-0" />
-                            <AdobePR className="w-12 h-12 flex-shrink-0" />
-                            <Figma className="w-12 h-12 flex-shrink-0" />
-                            <AdobePS className="w-12 h-12 flex-shrink-0" />
-                            <AdobeAI className="w-12 h-12 flex-shrink-0" />
-                            <AdobeID className="w-12 h-12 flex-shrink-0" />
-                            <AdobeAE className="w-12 h-12 flex-shrink-0" />
-                            <AdobePR className="w-12 h-12 flex-shrink-0" />
-                            <Figma className="w-12 h-12 flex-shrink-0" />
-                            <AdobePS className="w-12 h-12 flex-shrink-0" />
-                            <AdobeAI className="w-12 h-12 flex-shrink-0" />
-                            <AdobeID className="w-12 h-12 flex-shrink-0" />
-                            <AdobeAE className="w-12 h-12 flex-shrink-0" />
-                            <AdobePR className="w-12 h-12 flex-shrink-0" />
+                    <div className="absolute left-0 w-[120vw] -ml-[10vw] rotate-2 md:rotate-3 flex items-center overflow-hidden bg-primary p-3 md:p-4 shadow-lg">
+                        <div className="marquee-container flex items-center gap-12 md:gap-20 text-white opacity-50 whitespace-nowrap">
+                            <Figma className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobePS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobeAI className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobeID className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobeAE className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobePR className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <Figma className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobePS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobeAI className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobeID className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobeAE className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobePR className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <Figma className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobePS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobeAI className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobeID className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobeAE className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobePR className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <Figma className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobePS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobeAI className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobeID className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobeAE className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobePR className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <Figma className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobePS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobeAI className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobeID className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobeAE className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobePR className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <Figma className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobePS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobeAI className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobeID className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobeAE className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <AdobePR className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
                         </div>
                     </div>
                     
                     {/* Development Strip - rotated opposite direction */}
-                    <div className="absolute left-0 top-12 w-[120vw] -ml-[10vw] -rotate-3 flex items-center overflow-hidden bg-white bg-opacity-10 backdrop-blur-sm p-4 shadow-lg">
-                        <div className="marquee-container-reverse flex items-center gap-20 text-primary opacity-50 whitespace-nowrap">
-                            <React className="w-12 h-12 flex-shrink-0" />
-                            <NextJS className="w-12 h-12 flex-shrink-0" />
-                            <JavaScript className="w-12 h-12 flex-shrink-0" />
-                            <TailwindCSS className="w-12 h-12 flex-shrink-0" />
-                            <NodeJS className="w-12 h-12 flex-shrink-0" />
-                            <Go className="w-12 h-12 flex-shrink-0" />
-                            <React className="w-12 h-12 flex-shrink-0" />
-                            <NextJS className="w-12 h-12 flex-shrink-0" />
-                            <JavaScript className="w-12 h-12 flex-shrink-0" />
-                            <TailwindCSS className="w-12 h-12 flex-shrink-0" />
-                            <NodeJS className="w-12 h-12 flex-shrink-0" />
-                            <Go className="w-12 h-12 flex-shrink-0" />
-                            <React className="w-12 h-12 flex-shrink-0" />
-                            <NextJS className="w-12 h-12 flex-shrink-0" />
-                            <JavaScript className="w-12 h-12 flex-shrink-0" />
-                            <TailwindCSS className="w-12 h-12 flex-shrink-0" />
-                            <NodeJS className="w-12 h-12 flex-shrink-0" />
-                            <Go className="w-12 h-12 flex-shrink-0" />
-                            <React className="w-12 h-12 flex-shrink-0" />
-                            <NextJS className="w-12 h-12 flex-shrink-0" />
-                            <JavaScript className="w-12 h-12 flex-shrink-0" />
-                            <TailwindCSS className="w-12 h-12 flex-shrink-0" />
-                            <NodeJS className="w-12 h-12 flex-shrink-0" />
-                            <Go className="w-12 h-12 flex-shrink-0" />
-                            <React className="w-12 h-12 flex-shrink-0" />
-                            <NextJS className="w-12 h-12 flex-shrink-0" />
-                            <JavaScript className="w-12 h-12 flex-shrink-0" />
-                            <TailwindCSS className="w-12 h-12 flex-shrink-0" />
-                            <NodeJS className="w-12 h-12 flex-shrink-0" />
-                            <Go className="w-12 h-12 flex-shrink-0" />
-                            <React className="w-12 h-12 flex-shrink-0" />
-                            <NextJS className="w-12 h-12 flex-shrink-0" />
-                            <JavaScript className="w-12 h-12 flex-shrink-0" />
-                            <TailwindCSS className="w-12 h-12 flex-shrink-0" />
-                            <NodeJS className="w-12 h-12 flex-shrink-0" />
-                            <Go className="w-12 h-12 flex-shrink-0" />
-                            <React className="w-12 h-12 flex-shrink-0" />
-                            <NextJS className="w-12 h-12 flex-shrink-0" />
-                            <JavaScript className="w-12 h-12 flex-shrink-0" />
-                            <TailwindCSS className="w-12 h-12 flex-shrink-0" />
-                            <NodeJS className="w-12 h-12 flex-shrink-0" />
-                            <Go className="w-12 h-12 flex-shrink-0" />
+                    <div className="absolute left-0 top-10 md:top-12 w-[120vw] -ml-[10vw] -rotate-2 md:-rotate-3 flex items-center overflow-hidden bg-white bg-opacity-10 backdrop-blur-sm p-3 md:p-4 shadow-lg">
+                        <div className="marquee-container-reverse flex items-center gap-12 md:gap-20 text-primary opacity-50 whitespace-nowrap">
+                            <React className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <NextJS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <JavaScript className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <TailwindCSS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <NodeJS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <Go className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <React className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <NextJS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <JavaScript className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <TailwindCSS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <NodeJS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <Go className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <React className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <NextJS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <JavaScript className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <TailwindCSS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <NodeJS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <Go className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <React className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <NextJS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <JavaScript className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <TailwindCSS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <NodeJS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <Go className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <React className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <NextJS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <JavaScript className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <TailwindCSS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <NodeJS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <Go className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <React className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <NextJS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <JavaScript className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <TailwindCSS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <NodeJS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <Go className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <React className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <NextJS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <JavaScript className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <TailwindCSS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <NodeJS className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
+                            <Go className="w-8 h-8 md:w-12 md:h-12 flex-shrink-0" />
                         </div>
                     </div>
                 </div>

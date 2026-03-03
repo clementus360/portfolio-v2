@@ -82,12 +82,14 @@ export function WeatherCard({ location, temperature, condition, localTime, class
                 transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
                 transformStyle: "preserve-3d",
                 willChange: "transform",
+                backgroundColor: 'var(--weather-card-bg)',
+                borderColor: 'var(--weather-card-border)',
             }}
             className={`
     flex flex-col items-center justify-center 
     p-4 sm:p-8 rounded-2xl
-    bg-white/10 backdrop-blur-md 
-    border border-white/80 
+    backdrop-blur-md 
+    border
     shadow-inner
     ${className}
   `}
