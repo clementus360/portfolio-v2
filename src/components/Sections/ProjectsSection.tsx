@@ -175,7 +175,7 @@ export default function ProjectsSection() {
     }, []);
 
     return (
-        <section id="works" className="py-20 md:py-28 md:pb-20 " ref={sectionRef}>
+        <section id="works" className="py-20 md:py-28 md:pb-20 overflow-x-hidden" ref={sectionRef}>
             <div 
                 className="max-w-[1440px] mx-auto px-4 md:px-16 lg:px-32"
                 style={{
@@ -190,7 +190,7 @@ export default function ProjectsSection() {
                         transition={{ duration: 0.5 }}
                         viewport={{ once: true }}
                         style={{
-                            transform: `translate3d(${cursorOffset.x * 2}px, ${cursorOffset.y * 2 + scrollY * -0.03}px, 0)`,
+                            transform: window.innerWidth < 768 ? 'none' : `translate3d(${cursorOffset.x * 2}px, ${cursorOffset.y * 2 + scrollY * -0.03}px, 0)`,
                             transition: 'transform 0.2s ease-out',
                         }}
                     >
@@ -211,7 +211,7 @@ export default function ProjectsSection() {
                         whileInView="visible"
                         viewport={{ once: true, margin: "-100px" }}
                         style={{
-                            transform: `translate3d(${cursorOffset.x * 3}px, ${cursorOffset.y * 3 + scrollY * -0.04}px, 0)`,
+                            transform: window.innerWidth < 768 ? 'none' : `translate3d(${cursorOffset.x * 3}px, ${cursorOffset.y * 3 + scrollY * -0.04}px, 0)`,
                             transition: 'transform 0.2s ease-out',
                         }}
                     >

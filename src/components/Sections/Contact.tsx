@@ -116,7 +116,7 @@ export default function Contact() {
     };
 
     return (
-        <section id="contact" className="py-12 sm:py-20 md:py-28 md:pt-0" ref={sectionRef}>
+        <section id="contact" className="py-12 sm:py-20 md:py-28 md:pt-0 overflow-x-hidden" ref={sectionRef}>
             <div 
                 className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-16 lg:px-32"
                 style={{
@@ -131,7 +131,7 @@ export default function Contact() {
                         transition={{ duration: 0.5 }}
                         viewport={{ once: true }}
                         style={{
-                            transform: `translate3d(${cursorOffset.x * 2}px, ${cursorOffset.y * 2 + scrollY * -0.03}px, 0)`,
+                            transform: window.innerWidth < 768 ? 'none' : `translate3d(${cursorOffset.x * 2}px, ${cursorOffset.y * 2 + scrollY * -0.03}px, 0)`,
                             transition: 'transform 0.2s ease-out',
                         }}
                     >
@@ -153,7 +153,7 @@ export default function Contact() {
                         viewport={{ once: true }}
                         className="w-full"
                         style={{
-                            transform: `translate3d(${cursorOffset.x * 3}px, ${cursorOffset.y * 3 + scrollY * -0.04}px, 0)`,
+                            transform: window.innerWidth < 768 ? 'none' : `translate3d(${cursorOffset.x * 3}px, ${cursorOffset.y * 3 + scrollY * -0.04}px, 0)`,
                             transition: 'transform 0.2s ease-out',
                         }}
                     >
@@ -203,7 +203,7 @@ export default function Contact() {
                                     </div>
 
                                     {/* Code Content */}
-                                    <div className="flex-1 py-3 sm:py-6 px-3 sm:px-6 font-space-mono text-xs sm:text-sm overflow-x-auto">
+                                    <div className="flex-1 py-3 sm:py-6 px-3 sm:px-6 font-space-mono text-xs sm:text-sm overflow-x-hidden">
                                         <div className="space-y-1 sm:space-y-1.5 leading-6 sm:leading-8">
                                             {/* Opening brace */}
                                             <div className={theme === "night" ? "text-[#d4d4d4]" : "text-[#1a1a1a]"}>
@@ -405,7 +405,7 @@ export default function Contact() {
                                         : "bg-[#27c93f]/10 border-[#27c93f] text-[#27c93f]"
                                 }`}
                                 style={{
-                                    transform: `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4 + scrollY * -0.06}px, 0)`,
+                                    transform: window.innerWidth < 768 ? 'none' : `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4 + scrollY * -0.06}px, 0)`,
                                     transition: 'transform 0.2s ease-out',
                                 }}
                             >
@@ -424,7 +424,7 @@ export default function Contact() {
                                         : "bg-[#ff5f56]/10 border-[#ff5f56] text-[#ff5f56]"
                                 }`}
                                 style={{
-                                    transform: `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4 + scrollY * -0.06}px, 0)`,
+                                    transform: window.innerWidth < 768 ? 'none' : `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4 + scrollY * -0.06}px, 0)`,
                                     transition: 'transform 0.2s ease-out',
                                 }}
                             >
