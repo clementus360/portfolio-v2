@@ -2,10 +2,22 @@ import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const city = searchParams.get("city") || "Kigali";
+  const city = searchParams.get("city");
+  const lat = searchParams.get("lat");
+  const lon = searchParams.get("lon");
 
-  if (!city.trim()) {
-    return NextResponse.json({ error: "City is required" }, { status: 400 });
+  // Determine the query parameter for the weather API
+  let query: string;
+  
+  if (lat && lon) {
+    // Use coordinates if provided
+    query = `${lat},${lon}`;
+  } else if (city && city.trim()) {
+    // Use city name
+    query = city;
+  } else {
+    // Default to Kigali
+    query = "Kigali";
   }
 
   const apiKey = process.env.WEATHER_API_KEY;
@@ -19,7 +31,7 @@ export async function GET(request: Request) {
 
   const weatherApiUrl = new URL("https://api.weatherapi.com/v1/current.json");
   weatherApiUrl.searchParams.set("key", apiKey);
-  weatherApiUrl.searchParams.set("q", city);
+  weatherApiUrl.searchParams.set("q", query);
 
   try {
     const weatherResponse = await fetch(weatherApiUrl.toString(), {

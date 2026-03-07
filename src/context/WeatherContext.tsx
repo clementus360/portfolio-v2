@@ -38,14 +38,35 @@ export function WeatherProvider({ children }: { children: React.ReactNode }) {
     const [weather, setWeather] = useState<WeatherData | null>(null);
     const [theme, setTheme] = useState<Theme>("day");
 
-    // Fetch weather once on mount
+    // Fetch weather once on mount using user's location
     useEffect(() => {
-        refreshWeather("Kigali");
+        getUserLocationAndFetchWeather();
     }, []);
 
-    async function refreshWeather(city: string = "Kigali") {
+    async function getUserLocationAndFetchWeather() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    // Success: use coordinates
+                    const { latitude, longitude } = position.coords;
+                    await refreshWeather(undefined, latitude, longitude);
+                },
+                (error) => {
+                    // Error or denied: fallback to Kigali
+                    console.warn("Geolocation error, using fallback:", error.message);
+                    refreshWeather("Kigali");
+                }
+            );
+        } else {
+            // Geolocation not supported: fallback to Kigali
+            console.warn("Geolocation not supported, using fallback");
+            refreshWeather("Kigali");
+        }
+    }
+
+    async function refreshWeather(city?: string, lat?: number, lon?: number) {
         try {
-            const data = await fetchWeather(city);
+            const data = await fetchWeather(city, lat, lon);
 
             console.log("Fetched weather data:", data);
             const isDay = data.current.is_day === 1;
