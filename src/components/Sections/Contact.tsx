@@ -121,7 +121,7 @@ export default function Contact() {
     };
 
     return (
-        <section id="contact" className="py-12 sm:py-20 md:py-28 md:pt-0 overflow-x-hidden" ref={sectionRef}>
+        <section id="contact" className="py-12 sm:py-20 md:py-28 md:pt-0" ref={sectionRef}>
             <div 
                 className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-16 lg:px-32"
                 style={{
@@ -208,7 +208,7 @@ export default function Contact() {
                                     </div>
 
                                     {/* Code Content */}
-                                    <div className="flex-1 py-3 sm:py-6 px-3 sm:px-6 font-space-mono text-xs sm:text-sm overflow-x-hidden">
+                                    <div className="flex-1 py-3 sm:py-6 px-3 sm:px-6 font-space-mono text-xs sm:text-sm">
                                         <div className="space-y-1 sm:space-y-1.5 leading-6 sm:leading-8">
                                             {/* Opening brace */}
                                             <div className={theme === "night" ? "text-[#d4d4d4]" : "text-[#1a1a1a]"}>

@@ -149,7 +149,7 @@ export default function About() {
     }, []);
 
     return (
-        <section ref={sectionRef} id="about" className="w-full pt-20 md:pt-16 overflow-x-hidden">
+        <section ref={sectionRef} id="about" className="w-full pt-20 md:pt-16">
             <div 
                 className="w-full max-w-[1440px] mx-auto px-4 md:px-16 lg:px-32"
                 style={{

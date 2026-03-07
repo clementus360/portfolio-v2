@@ -26,7 +26,7 @@ export default function Home() {
   }, [refreshWeather]);
 
   return (
-    <div className="font-roboto pt-54 overflow-x-hidden">
+    <div className="font-roboto pt-54">
       <Hero />
       <About />
       <ProjectsSection />

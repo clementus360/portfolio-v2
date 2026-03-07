@@ -180,7 +180,7 @@ export default function ProjectsSection() {
     }, []);
 
     return (
-        <section id="works" className="py-20 md:py-28 md:pb-20 overflow-x-hidden" ref={sectionRef}>
+        <section id="works" className="py-20 md:py-28 md:pb-20" ref={sectionRef}>
             <div 
                 className="max-w-[1440px] mx-auto px-4 md:px-16 lg:px-32"
                 style={{

@@ -309,7 +309,7 @@ export default function Hero() {
     return (
         <>
             <style>{marqueeStyle}</style>
-            <section ref={heroRef} className="relative flex flex-col gap-8 md:gap-12 lg:gap-20 items-center justify-between pt-0 overflow-x-hidden">
+            <section ref={heroRef} className="relative flex flex-col gap-8 md:gap-12 lg:gap-20 items-center justify-between pt-0">
                 <div className="px-4 max-w-[1440px] mx-auto md:px-16 lg:px-32 w-full">
                     <div 
                         className="h-full flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 lg:gap-12"
@@ -361,7 +361,7 @@ export default function Hero() {
                         </p>
                     </div>
                 </div>
-                <div className="relative w-screen h-32 md:h-40 my-4 md:my-8 overflow-x-hidden">
+                <div className="relative w-full h-32 md:h-40 my-4 md:my-8">
                     {/* Design Strip - rotated one direction */}
                     <div 
                         className="absolute left-0 w-[120vw] -ml-[10vw] flex items-center overflow-hidden bg-primary p-3 md:p-4 shadow-lg"

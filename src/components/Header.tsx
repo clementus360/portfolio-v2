@@ -63,7 +63,7 @@ export default function Header() {
 
     return (
         <>
-            <div className="fixed w-full px-4 md:px-16 lg:px-32 py-6 md:py-12 z-50 overflow-x-hidden">
+            <div className="fixed w-full px-4 md:px-16 lg:px-32 py-6 md:py-12 z-50">
                 <div
                     className={`flex m-auto justify-between items-center px-4 md:px-8 py-3 md:py-4 rounded-sm transition-all duration-300 ${isScrolled
                         ? "bg-[var(--menu-bg)] backdrop-blur-md border-2 border-[var(--menu-border)] shadow-lg"
