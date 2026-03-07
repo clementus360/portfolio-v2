@@ -135,6 +135,11 @@ export default function ProjectsSection() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [cursorOffset, setCursorOffset] = useState({ x: 0, y: 0 });
     const [scrollY, setScrollY] = useState(0);
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     useEffect(() => {
         const handleMouseMove = (event: MouseEvent) => {
@@ -190,7 +195,7 @@ export default function ProjectsSection() {
                         transition={{ duration: 0.5 }}
                         viewport={{ once: true }}
                         style={{
-                            transform: window.innerWidth < 768 ? 'none' : `translate3d(${cursorOffset.x * 2}px, ${cursorOffset.y * 2 + scrollY * -0.03}px, 0)`,
+                            transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 2}px, ${cursorOffset.y * 2 + scrollY * -0.03}px, 0)` : 'none',
                             transition: 'transform 0.2s ease-out',
                         }}
                     >
@@ -211,7 +216,7 @@ export default function ProjectsSection() {
                         whileInView="visible"
                         viewport={{ once: true, margin: "-100px" }}
                         style={{
-                            transform: window.innerWidth < 768 ? 'none' : `translate3d(${cursorOffset.x * 3}px, ${cursorOffset.y * 3 + scrollY * -0.04}px, 0)`,
+                            transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 3}px, ${cursorOffset.y * 3 + scrollY * -0.04}px, 0)` : 'none',
                             transition: 'transform 0.2s ease-out',
                         }}
                     >

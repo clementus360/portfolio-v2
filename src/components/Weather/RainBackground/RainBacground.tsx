@@ -47,6 +47,8 @@ const RainBackground: React.FC<RainBackgroundProps> = ({
     };
 
     const createRain = () => {
+        if (typeof window === 'undefined') return;
+        
         for (let i = 0; i < intensity; i++) {
             const jitter = Math.random() * (interval * 0.8);
             setTimeout(() => {

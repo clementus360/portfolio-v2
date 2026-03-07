@@ -15,6 +15,7 @@ export default function Contact() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [cursorOffset, setCursorOffset] = useState({ x: 0, y: 0 });
     const [scrollY, setScrollY] = useState(0);
+    const [isMounted, setIsMounted] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -24,6 +25,10 @@ export default function Contact() {
     const [focusedField, setFocusedField] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     useEffect(() => {
         const handleMouseMove = (event: MouseEvent) => {
@@ -131,7 +136,7 @@ export default function Contact() {
                         transition={{ duration: 0.5 }}
                         viewport={{ once: true }}
                         style={{
-                            transform: window.innerWidth < 768 ? 'none' : `translate3d(${cursorOffset.x * 2}px, ${cursorOffset.y * 2 + scrollY * -0.03}px, 0)`,
+                            transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 2}px, ${cursorOffset.y * 2 + scrollY * -0.03}px, 0)` : 'none',
                             transition: 'transform 0.2s ease-out',
                         }}
                     >
@@ -153,7 +158,7 @@ export default function Contact() {
                         viewport={{ once: true }}
                         className="w-full"
                         style={{
-                            transform: window.innerWidth < 768 ? 'none' : `translate3d(${cursorOffset.x * 3}px, ${cursorOffset.y * 3 + scrollY * -0.04}px, 0)`,
+                            transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 3}px, ${cursorOffset.y * 3 + scrollY * -0.04}px, 0)` : 'none',
                             transition: 'transform 0.2s ease-out',
                         }}
                     >
@@ -405,7 +410,7 @@ export default function Contact() {
                                         : "bg-[#27c93f]/10 border-[#27c93f] text-[#27c93f]"
                                 }`}
                                 style={{
-                                    transform: window.innerWidth < 768 ? 'none' : `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4 + scrollY * -0.06}px, 0)`,
+                                    transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4 + scrollY * -0.06}px, 0)` : 'none',
                                     transition: 'transform 0.2s ease-out',
                                 }}
                             >
@@ -424,7 +429,7 @@ export default function Contact() {
                                         : "bg-[#ff5f56]/10 border-[#ff5f56] text-[#ff5f56]"
                                 }`}
                                 style={{
-                                    transform: window.innerWidth < 768 ? 'none' : `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4 + scrollY * -0.06}px, 0)`,
+                                    transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4 + scrollY * -0.06}px, 0)` : 'none',
                                     transition: 'transform 0.2s ease-out',
                                 }}
                             >

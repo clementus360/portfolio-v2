@@ -44,7 +44,7 @@ export function WeatherProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     async function getUserLocationAndFetchWeather() {
-        if ("geolocation" in navigator) {
+        if (typeof navigator !== 'undefined' && "geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(
                 async (position) => {
                     // Success: use coordinates
@@ -83,8 +83,10 @@ export function WeatherProvider({ children }: { children: React.ReactNode }) {
             setTheme(isDay ? "day" : "night");
 
             // Apply global theme to <html>
-            document.documentElement.classList.remove("day", "night");
-            document.documentElement.classList.add(isDay ? "day" : "night");
+            if (typeof document !== 'undefined') {
+                document.documentElement.classList.remove("day", "night");
+                document.documentElement.classList.add(isDay ? "day" : "night");
+            }
         } catch (err) {
             console.error("Weather fetch failed", err);
         }

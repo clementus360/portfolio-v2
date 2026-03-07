@@ -84,6 +84,11 @@ export default function About() {
     const [stampsDropped, setStampsDropped] = useState(false);
     const [cursorOffset, setCursorOffset] = useState({ x: 0, y: 0 });
     const [scrollY, setScrollY] = useState(0);
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     useEffect(() => {
         if (!sectionRef.current) return;
@@ -156,7 +161,7 @@ export default function About() {
                     <div 
                         className={`font-space-mono text-xs md:text-sm text-primary/80 transition-opacity duration-500 ${typewriterVisible ? 'opacity-100' : 'opacity-0'}`}
                         style={{
-                            transform: window.innerWidth < 768 ? 'none' : `translate3d(${cursorOffset.x * 2}px, ${cursorOffset.y * 2 + scrollY * -0.03}px, 0)`,
+                            transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 2}px, ${cursorOffset.y * 2 + scrollY * -0.03}px, 0)` : 'none',
                             transition: 'transform 0.2s ease-out',
                         }}
                     >
@@ -168,7 +173,7 @@ export default function About() {
                         className={`text-3xl md:text-5xl font-extrabold font-nexa uppercase tracking-[0.04em] mt-4 transition-all duration-700 ${typewriterVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} 
                         style={{ 
                             transitionDelay: '2200ms',
-                            transform: window.innerWidth < 768 ? 'none' : `translate3d(${cursorOffset.x * 3}px, ${cursorOffset.y * 3 + scrollY * -0.04}px, 0)`,
+                            transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 3}px, ${cursorOffset.y * 3 + scrollY * -0.04}px, 0)` : 'none',
                         }}
                     >
                         Subject Profile
@@ -182,7 +187,7 @@ export default function About() {
                         <div 
                             className="relative rotate-[-2deg] transition-transform duration-300 hover:rotate-0"
                             style={{
-                                transform: window.innerWidth < 768 ? 'rotate(-2deg)' : `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4 + scrollY * -0.08}px, 0) rotate(-2deg)`,
+                                transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4 + scrollY * -0.08}px, 0) rotate(-2deg)` : 'rotate(-2deg)',
                                 transition: 'transform 0.2s ease-out',
                             }}
                         >
@@ -245,7 +250,7 @@ export default function About() {
                     <div 
                         className="relative"
                         style={{
-                            transform: window.innerWidth < 768 ? 'none' : `translate3d(${cursorOffset.x * 2}px, ${cursorOffset.y * 2 + scrollY * -0.06}px, 0)`,
+                            transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 2}px, ${cursorOffset.y * 2 + scrollY * -0.06}px, 0)` : 'none',
                             transition: 'transform 0.2s ease-out',
                         }}
                     >

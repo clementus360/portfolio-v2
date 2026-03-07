@@ -207,10 +207,15 @@ export default function Hero() {
     const [animationPhase, setAnimationPhase] = useState<'static' | 'glitch-out' | 'glitch-in'>('static');
     const [cursorOffset, setCursorOffset] = useState({ x: 0, y: 0 });
     const [scrollY, setScrollY] = useState(0);
+    const [isMounted, setIsMounted] = useState(false);
 
     // Skill glitch state
     const [designGlitchPhase, setDesignGlitchPhase] = useState<'normal' | 'glitch-in' | 'glitch-out'>('normal');
     const [devGlitchPhase, setDevGlitchPhase] = useState<'normal' | 'glitch-in' | 'glitch-out'>('normal');
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     useEffect(() => {
         const languageInterval = setInterval(() => {
@@ -327,7 +332,7 @@ export default function Hero() {
                             <h1
                                 className="text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-extrabold font-nexa transition-transform duration-200 ease-out leading-"
                                 style={{
-                                    transform: window.innerWidth < 768 ? 'none' : `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4}px, 0)`,
+                                    transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4}px, 0)` : 'none',
                                 }}
                             >
                                 Ishimwe Clement
@@ -347,7 +352,7 @@ export default function Hero() {
                         <p
                             className="font-space-mono font-light w-full lg:w-8/12 max-w-3xl text-sm md:text-base transition-transform duration-300 ease-out"
                             style={{
-                                transform: window.innerWidth < 768 ? 'none' : `translate3d(${cursorOffset.x * 2}px, ${cursorOffset.y * 2}px, 0)`,
+                                transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 2}px, ${cursorOffset.y * 2}px, 0)` : 'none',
                             }}
                         >
                             <span className="block"><span className="font-bold">Subject:</span> Ishimwe Clement.</span>

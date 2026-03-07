@@ -21,7 +21,9 @@ export function WeatherCard({ location, temperature, condition, localTime, class
 
     useEffect(() => {
         // Detect if device supports touch (mobile/tablet)
-        setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+        if (typeof window !== 'undefined') {
+            setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+        }
     }, []);
 
     useEffect(() => {
@@ -81,7 +83,7 @@ export function WeatherCard({ location, temperature, condition, localTime, class
             window.removeEventListener("mouseleave", handleMouseLeaveWindow);
             window.cancelAnimationFrame(animationFrameId);
         };
-    }, []);
+    }, [isTouchDevice]);
 
     return (
         <div
