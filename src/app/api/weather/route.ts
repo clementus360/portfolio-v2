@@ -33,6 +33,8 @@ export async function GET(request: Request) {
   weatherApiUrl.searchParams.set("key", apiKey);
   weatherApiUrl.searchParams.set("q", query);
 
+  console.log("Fetching weather for query:", query);
+
   try {
     const weatherResponse = await fetch(weatherApiUrl.toString(), {
       cache: "no-store",
@@ -41,6 +43,7 @@ export async function GET(request: Request) {
     const weatherData = await weatherResponse.json();
 
     if (!weatherResponse.ok) {
+      console.error("Weather API error:", weatherData);
       return NextResponse.json(
         { error: weatherData?.error?.message || "Weather API request failed" },
         { status: weatherResponse.status },
@@ -48,7 +51,8 @@ export async function GET(request: Request) {
     }
 
     return NextResponse.json(weatherData, { status: 200 });
-  } catch {
+  } catch (error) {
+    console.error("Weather fetch exception:", error);
     return NextResponse.json(
       { error: "Failed to fetch weather data" },
       { status: 500 },

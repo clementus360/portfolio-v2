@@ -25,7 +25,7 @@ interface WeatherData {
 interface WeatherContextProps {
     weather: WeatherData | null;
     theme: Theme;
-    refreshWeather: (city?: string) => Promise<void>;
+    refreshWeather: (city?: string, lat?: number, lon?: number) => Promise<void>;
 }
 
 const WeatherContext = createContext<WeatherContextProps>({
@@ -49,18 +49,24 @@ export function WeatherProvider({ children }: { children: React.ReactNode }) {
                 async (position) => {
                     // Success: use coordinates
                     const { latitude, longitude } = position.coords;
-                    await refreshWeather(undefined, latitude, longitude);
+                    try {
+                        await refreshWeather(undefined, latitude, longitude);
+                    } catch (error) {
+                        // If coordinates fail, fallback to Kigali
+                        console.warn("Coordinates weather fetch failed, using fallback:", error);
+                        await refreshWeather("Kigali");
+                    }
                 },
-                (error) => {
+                async (error) => {
                     // Error or denied: fallback to Kigali
                     console.warn("Geolocation error, using fallback:", error.message);
-                    refreshWeather("Kigali");
+                    await refreshWeather("Kigali");
                 }
             );
         } else {
             // Geolocation not supported: fallback to Kigali
             console.warn("Geolocation not supported, using fallback");
-            refreshWeather("Kigali");
+            await refreshWeather("Kigali");
         }
     }
 
@@ -89,6 +95,15 @@ export function WeatherProvider({ children }: { children: React.ReactNode }) {
             }
         } catch (err) {
             console.error("Weather fetch failed", err);
+            // If not already using Kigali as fallback, try Kigali
+            if (city !== "Kigali" && (lat !== undefined || lon !== undefined)) {
+                console.warn("Retrying with fallback location: Kigali");
+                try {
+                    await refreshWeather("Kigali");
+                } catch (fallbackErr) {
+                    console.error("Fallback weather fetch also failed", fallbackErr);
+                }
+            }
         }
     }
 
