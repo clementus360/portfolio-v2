@@ -6,31 +6,38 @@
   --color-primary: #CF0F0F;
   --font-roboto: "Roboto", sans-serif;
   --font-sacramento: "Sacramento", cursive;
-  --menu-bg: rgba(255, 255, 255, 0.85);
-  --menu-divider: rgba(0, 0, 0, 0.1);
-  --menu-border: rgba(0, 0, 0, 0.2);
-  --weather-card-bg: rgba(255, 255, 255, 0.3);
-  --weather-card-border: rgba(255, 255, 255, 0.8);
+  --font-space-mono: "Space Mono", monospace;
+  --menu-bg: rgba(245, 245, 245, 0.95);
+  --menu-divider: rgba(207, 15, 15, 0.15);
+  --menu-border: rgba(207, 15, 15, 0.6);
+  --weather-card-bg: rgba(248, 248, 248, 0.92);
+  --weather-card-border: rgba(207, 15, 15, 0.5);
+  --polaroid-bg: linear-gradient(135deg, #fdfbf7 0%, #f8f6f2 50%, #fdfbf7 100%);
+  --tape-bg: rgba(255, 255, 240, 0.6);
 }
 
 html.day {
   --background: #E0E0E0;
   --foreground: #000000;
-  --menu-bg: rgba(255, 255, 255, 0.85);
-  --menu-divider: rgba(0, 0, 0, 0.1);
-  --menu-border: rgba(0, 0, 0, 0.2);
-  --weather-card-bg: rgba(255, 255, 255, 0.3);
-  --weather-card-border: rgba(255, 255, 255, 0.8);
+  --menu-bg: rgba(245, 245, 245, 0.95);
+  --menu-divider: rgba(207, 15, 15, 0.15);
+  --menu-border: rgba(207, 15, 15, 0.6);
+  --weather-card-bg: rgba(248, 248, 248, 0.92);
+  --weather-card-border: rgba(207, 15, 15, 0.5);
+  --polaroid-bg: linear-gradient(135deg, #fdfbf7 0%, #f8f6f2 50%, #fdfbf7 100%);
+  --tape-bg: rgba(255, 255, 240, 0.6);
 }
 
 html.night {
   --background: #0d0d0d;
   --foreground: #ffffff;
-  --menu-bg: rgba(13, 13, 13, 0.9);
-  --menu-divider: rgba(255, 255, 255, 0.15);
-  --menu-border: rgba(255, 255, 255, 0.2);
-  --weather-card-bg: rgba(13, 13, 13, 0.85);
-  --weather-card-border: rgba(255, 255, 255, 0.3);
+  --menu-bg: rgba(10, 10, 10, 0.85);
+  --menu-divider: rgba(207, 15, 15, 0.2);
+  --menu-border: rgba(207, 15, 15, 0.4);
+  --weather-card-bg: rgba(10, 10, 10, 0.8);
+  --weather-card-border: rgba(207, 15, 15, 0.6);
+  --polaroid-bg: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 50%, #2a2a2a 100%);
+  --tape-bg: rgba(60, 60, 50, 0.5);
 }
 
 @theme inline {
@@ -39,6 +46,7 @@ html.night {
   --color-primary: var(--color-primary);
   --font-roboto: var(--font-roboto);
   --font-sacramento: var(--font-sacramento);
+  --font-space-mono: var(--font-space-mono);
   --font-nexa: var(--font-nexa);
 }
 
@@ -49,10 +57,14 @@ html.night {
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-roboto);
+  font-family: var(--font-space-mono);
 }
 
 body::before {
@@ -62,13 +74,12 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/72.jpg');
+  background-image: url('/noise.jpg');
   background-size: 400px 400px;
   background-repeat: repeat;
   pointer-events: none;
   z-index: -1;
   opacity: 0.2;
-  mix-blend-mode: multiply;
   will-change: opacity;
 }
 

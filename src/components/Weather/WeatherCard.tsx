@@ -87,27 +87,28 @@ export function WeatherCard({ location, temperature, condition, localTime, class
             }}
             className={`
     flex flex-col items-center justify-center 
-    p-4 sm:p-8 rounded-2xl
+    p-6 sm:p-8 rounded-sm
     backdrop-blur-md 
-    border
-    shadow-inner
+    border-2
+    shadow-2xl
+    z-50
     ${className}
   `}
         >
-            <p className="flex items-start text-4xl font-bold text-center ">
+            <p className="flex items-start text-5xl font-bold text-center font-space-mono">
                 {temperature}
-                <span className="text-xl">°C</span>
+                <span className="text-2xl ml-1">°C</span>
             </p>
 
-            <div className="flex flex-col items-center gap-2 mt-2">
-                <h2 className="text-lg font-light text-center ">{location}</h2>
+            <div className="flex flex-col items-center gap-3 mt-4 border-t border-[var(--weather-card-border)] pt-4">
+                <h2 className="text-lg font-space-mono font-semibold text-center uppercase tracking-wider">{location}</h2>
                 {localTime && (
-                    <p className="text-xs opacity-70">{new Date(localTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                    <p className="text-xs font-space-mono opacity-60">{new Date(localTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                 )}
-                <WeatherIcon condition={condition} className="w-4 h-4 " />
+                <WeatherIcon condition={condition} className="w-5 h-5 mt-1" />
             </div>
-            <div className="mt-4">
-                <p className="text-[6px] text-center">Powered by <a href="https://www.weatherapi.com/" className="font-bold" title="Free Weather API">WeatherAPI.com</a></p>
+            <div className="mt-4 border-t border-[var(--weather-card-border)] pt-4 w-full">
+                <p className="text-[10px] text-center font-space-mono opacity-50">DATA: <a href="https://www.weatherapi.com/" className="font-bold opacity-70" title="Free Weather API">WeatherAPI.com</a></p>
             </div>
         </div>
     );

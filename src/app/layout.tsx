@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Roboto, Sacramento } from "next/font/google";
+import { Roboto, Sacramento, Space_Mono } from "next/font/google";
 import "./globals.css";
 import localFont from 'next/font/local'
 import Header from "@/components/Header";
@@ -19,9 +19,15 @@ const sacramento = Sacramento({
   variable: "--font-sacramento",
 });
 
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-space-mono",
+});
+
 const Nexa = localFont({
   src: [
-    { path: '../../fonts/NexaRustSans-Trial-Black2.ttf', weight: '400' },
+    { path: '../../fonts/Nexa Rust Sans W00 Black 03.otf', weight: '400' },
   ],
   variable: '--font-nexa',
   display: 'swap',
@@ -58,7 +64,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.variable} ${sacramento.variable} ${Nexa.variable} bg-[var(--background)] text-[var(--foreground)] antialiased`}
+        className={`${roboto.variable} ${sacramento.variable} ${spaceMono.variable} ${Nexa.variable} bg-[var(--background)] text-[var(--foreground)] antialiased`}
       >
         <Header />
         <WeatherProvider>

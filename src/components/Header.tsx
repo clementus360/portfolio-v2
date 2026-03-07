@@ -1,12 +1,30 @@
 "use client";
 
+import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 import Logo from "./Icons/Logo";
 import Menu from "./Icons/Menu";
 import { useEffect, useState } from "react";
 
 export default function Header() {
+    const router = useRouter();
+    const pathname = usePathname();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const handleNavClick = (sectionId: string) => {
+        if (pathname === "/") {
+            // Already on homepage, use anchor link
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: "smooth" });
+            }
+        } else {
+            // On a different page, navigate to homepage with hash
+            router.push(`/#${sectionId}`);
+        }
+        setIsMenuOpen(false);
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -32,13 +50,12 @@ export default function Header() {
     const menuItems = [
         { label: "ABOUT", href: "#about" },
         { label: "WORKS", href: "#works" },
-        { label: "PLAYGROUND", href: "#playground" },
         { label: "CONTACT", href: "#contact" },
     ];
 
     const externalLinks = [
         { label: "Portfolio", href: "https://res.cloudinary.com/dpfonnjv3/image/upload/v1772527831/Design_Portfolio_compressed_qcltut.pdf", external: true },
-        { label: "Resume", href: "https://res.cloudinary.com/dpfonnjv3/image/upload/v1772527608/Resume_muvcf9.ai", external: true },
+        { label: "Resume", href: "https://res.cloudinary.com/dpfonnjv3/image/upload/v1772576497/Resume_x4kyun.pdf", external: true },
         { label: "QR Code Tool", href: "https://qr.ishimwe.dev", external: true },
         { label: "GitHub", href: "https://github.com/clementus360", external: true },
         { label: "LinkedIn", href: "https://www.linkedin.com/in/clementus360", external: true },
@@ -48,23 +65,25 @@ export default function Header() {
         <>
             <div className="fixed w-screen px-4 md:px-16 lg:px-32 py-6 md:py-12 z-50">
                 <div
-                    className={`flex m-auto justify-between items-center px-4 md:px-8 py-3 md:py-4 rounded-full transition-all duration-300 ${isScrolled
-                            ? "bg-white/10 backdrop-blur-md border border-white/80 shadow-inner"
-                            : ""
+                    className={`flex m-auto justify-between items-center px-4 md:px-8 py-3 md:py-4 rounded-sm transition-all duration-300 ${isScrolled
+                        ? "bg-[var(--menu-bg)] backdrop-blur-md border-2 border-[var(--menu-border)] shadow-lg"
+                        : ""
                         }`}
                 >
-                    <Logo className="w-12 md:w-16 text-[var(--foreground)]" />
+                    <Link href="/" className="flex items-center gap-2">
+                        <Logo className="w-12 md:w-16 text-[var(--foreground)]" />
+                    </Link>
 
                     {/* Desktop Navigation */}
                     <ul className="hidden lg:flex gap-16 text-xs text-center">
                         {menuItems.map((item) => (
                             <li key={item.label}>
-                                <a
-                                    href={item.href}
-                                    className="text-[var(--foreground)] hover:font-bold hover:text-primary cursor-pointer transition-all"
+                                <button
+                                    onClick={() => handleNavClick(item.href.slice(1))}
+                                    className="text-[var(--foreground)] hover:font-bold hover:text-primary cursor-pointer transition-all bg-none border-none padding-0"
                                 >
                                     {item.label}
-                                </a>
+                                </button>
                             </li>
                         ))}
                     </ul>
@@ -121,14 +140,13 @@ export default function Header() {
                     <nav className="flex flex-col gap-6 mb-12 lg:hidden">
                         <h3 className="text-xs font-bold text-[var(--foreground)]/60 mb-2">NAVIGATION</h3>
                         {menuItems.map((item) => (
-                            <a
+                            <button
                                 key={item.label}
-                                href={item.href}
-                                onClick={() => setIsMenuOpen(false)}
-                                className="text-xl font-medium text-[var(--foreground)] hover:text-primary transition-colors"
+                                onClick={() => handleNavClick(item.href.slice(1))}
+                                className="text-left text-xl font-medium text-[var(--foreground)] hover:text-primary transition-colors bg-none border-none padding-0"
                             >
                                 {item.label}
-                            </a>
+                            </button>
                         ))}
                     </nav>
 

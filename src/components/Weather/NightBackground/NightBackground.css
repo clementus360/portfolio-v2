@@ -1,0 +1,173 @@
+.night-background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+    background: linear-gradient(
+        to bottom,
+        hsl(0, 0%, 8%) 0%,
+        hsl(0, 0%, 10%) 40%,
+        hsl(0, 0%, 12%) 70%,
+        hsl(0, 0%, 14%) 100%
+    );
+}
+
+/* Grain Texture Overlay */
+.night-background::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' seed='1'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    background-size: 400px 400px;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Stars Container */
+.stars-container {
+    position: absolute;
+    inset: 0;
+}
+
+/* Individual Star */
+.star {
+    position: absolute;
+    background: rgba(200, 200, 200, 0.5);
+    border-radius: 50%;
+    box-shadow: none;
+    animation: twingleMuted 4s infinite ease-in-out;
+    filter: blur(0.3px);
+}
+
+/* Twinkling animation - muted */
+@keyframes twingleMuted {
+    0%,
+    100% {
+        opacity: 0.15;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.35;
+        transform: scale(1.1);
+    }
+}
+
+@keyframes groundPulseMuted {
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.15;
+    }
+}
+
+/* Shooting Star */
+.shooting-star {
+    position: absolute;
+    top: 20%;
+    right: 30%;
+    width: 2px;
+    height: 2px;
+    background: rgba(150, 150, 150, 0.4);
+    border-radius: 50%;
+    box-shadow: none;
+    opacity: 0;
+    animation: shootingStarMuted 4s infinite;
+    filter: blur(0.5px);
+}
+
+@keyframes shootingStarMuted {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(-45deg);
+    }
+    8% {
+        opacity: 0.25;
+    }
+    25% {
+        opacity: 0.25;
+    }
+    45% {
+        opacity: 0;
+        transform: translate(-300px, 300px) rotate(-45deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-300px, 300px) rotate(-45deg);
+    }
+}
+
+.shooting-star::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(
+        to left,
+        rgba(150, 150, 150, 0.3),
+        transparent
+    );
+    transform: translateX(2px);
+    border-radius: 50%;
+}
+
+/* Atmospheric Haze */
+.atmosphere-haze {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(
+        to top,
+        rgba(40, 40, 40, 0.3) 0%,
+        rgba(30, 30, 30, 0.15) 30%,
+        transparent 100%
+    );
+    animation: hazeShiftMuted 25s infinite ease-in-out;
+}
+
+@keyframes hazeShiftMuted {
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 0.25;
+    }
+}
+
+/* Ground Glow */
+.ground-glow {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 35%;
+    background: radial-gradient(
+        ellipse at bottom,
+        rgba(30, 30, 30, 0.15) 0%,
+        rgba(20, 20, 20, 0.08) 30%,
+        transparent 70%
+    );
+    filter: blur(50px);
+    animation: groundPulseMuted 18s infinite ease-in-out;
+}
+
+@keyframes groundPulse {
+    0%,
+    100% {
+        opacity: 0.5;
+        transform: scaleY(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scaleY(1.1);
+    }
+}

@@ -2,7 +2,9 @@
 
 import HeatBackground from "./HeatBackground/HeatBackground";
 import RainBackground from "./RainBackground/RainBacground";
+import SnowBackground from "./SnowBackground/SnowBackground";
 import SunBackground from "./SunBackground/SunBackground";
+import NightBackground from "./NightBackground/NightBackground";
 
 type WeatherCondition =
     | "cloudyday"
@@ -45,15 +47,7 @@ export default function WeatherBackground({
             );
 
         case "snow":
-            return (
-                <div className="fixed inset-0 z-[-1]">
-                    {/* ❄️ Placeholder — add SnowBackground later */}
-                    <div
-                        className={`absolute inset-0 ${isDay ? "bg-blue-100/40" : "bg-blue-900/40"
-                            }`}
-                    />
-                </div>
-            );
+            return <SnowBackground intensity={2} enabled isDay={isDay} />;
 
         case "cloudyday":
         case "cloudynight":
@@ -69,8 +63,8 @@ export default function WeatherBackground({
 
         case "night":
             return (
-                <div className="fixed inset-0 z-[-1] bg-black">
-                    {/* 🌌 Placeholder — StarsBackground later */}
+                <div className="fixed inset-0 z-[-1]">
+                    <NightBackground enabled opacity={1} />
                 </div>
             );
 
