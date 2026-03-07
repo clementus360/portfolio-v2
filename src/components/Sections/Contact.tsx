@@ -116,9 +116,9 @@ export default function Contact() {
     };
 
     return (
-        <section id="contact" className="py-20 md:py-28 md:pt-0" ref={sectionRef}>
+        <section id="contact" className="py-12 sm:py-20 md:py-28 md:pt-0" ref={sectionRef}>
             <div 
-                className="max-w-[1440px] mx-auto px-4 md:px-16 lg:px-32"
+                className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-16 lg:px-32"
                 style={{
                     transform: `translateY(${scrollY * -0.05}px)`,
                 }}
@@ -138,10 +138,10 @@ export default function Contact() {
                         <p className="text-xs text-primary uppercase tracking-[0.2em] font-medium font-space-mono">
                             Secure Channel — Encrypted Transmission
                         </p>
-                        <h2 className="text-3xl md:text-5xl font-extrabold font-nexa uppercase tracking-[0.04em]">
+                        <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold font-nexa uppercase tracking-[0.04em]">
                             Establish Contact
                         </h2>
-                        <p className="font-space-mono text-sm text-[var(--foreground)]/60 max-w-2xl">
+                        <p className="font-space-mono text-xs sm:text-sm text-[var(--foreground)]/60 max-w-2xl">
                             Transmit inquiry via secure form. All communications are logged and encrypted.
                         </p>
                     </motion.div>
@@ -167,19 +167,19 @@ export default function Contact() {
                         >
                             {/* IDE Header */}
                             <div
-                                className={`flex items-center justify-between px-4 py-2 border-b font-space-mono text-xs ${
+                                className={`flex items-center justify-between px-3 sm:px-4 py-2 border-b font-space-mono text-[10px] sm:text-xs ${
                                     theme === "night"
                                         ? "bg-[#2d2d2d] border-[#3c3c3c] text-[#cccccc]"
                                         : "bg-[#e8e8e8] border-[var(--foreground)]/15 text-[var(--foreground)]"
                                 }`}
                             >
                                 <div className="flex items-center gap-2">
-                                    <div className="flex items-center gap-1.5">
-                                        <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
-                                        <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-                                        <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
+                                    <div className="flex items-center gap-1 sm:gap-1.5">
+                                        <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-[#ff5f56]" />
+                                        <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-[#ffbd2e]" />
+                                        <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-[#27c93f]" />
                                     </div>
-                                    <span className="ml-3">contact_form.json</span>
+                                    <span className="ml-2 sm:ml-3 truncate">contact_form.json</span>
                                 </div>
                                 <span className="text-[10px] opacity-60">JSON</span>
                             </div>
@@ -189,36 +189,36 @@ export default function Contact() {
                                 <div className="flex">
                                     {/* Line Numbers */}
                                     <div
-                                        className={`select-none py-4 px-3 font-space-mono text-xs text-right border-r ${
+                                        className={`select-none py-3 sm:py-4 px-2 sm:px-3 font-space-mono text-[10px] sm:text-xs text-right border-r ${
                                             theme === "night"
                                                 ? "bg-[#1e1e1e] border-[#3c3c3c] text-[#858585]"
                                                 : "bg-[#eeeeee] border-[var(--foreground)]/10 text-[var(--foreground)]/40"
                                         }`}
                                     >
                                         {Array.from({ length: getLineCount() + Object.keys(formData).length }, (_, i) => (
-                                            <div key={i} className="leading-6">
+                                            <div key={i} className="leading-5 sm:leading-6">
                                                 {i + 1}
                                             </div>
                                         ))}
                                     </div>
 
                                     {/* Code Content */}
-                                    <div className="flex-1 py-6 px-6 font-space-mono text-sm overflow-x-auto">
-                                        <div className="space-y-1.5 leading-8">
+                                    <div className="flex-1 py-3 sm:py-6 px-3 sm:px-6 font-space-mono text-xs sm:text-sm overflow-x-auto">
+                                        <div className="space-y-1 sm:space-y-1.5 leading-6 sm:leading-8">
                                             {/* Opening brace */}
                                             <div className={theme === "night" ? "text-[#d4d4d4]" : "text-[#1a1a1a]"}>
                                                 {"{"}
                                             </div>
 
                                             {/* Name Field */}
-                                            <div className="pl-6 flex items-center gap-3">
-                                                <span className={theme === "night" ? "text-[#9cdcfe]" : "text-[#c41c3b]"}>
+                                            <div className="pl-3 sm:pl-6 flex items-center gap-1 sm:gap-2 md:gap-3 min-w-0">
+                                                <span className={`${theme === "night" ? "text-[#9cdcfe]" : "text-[#c41c3b]"} shrink-0 text-[10px] sm:text-xs md:text-sm`}>
                                                     "name"
                                                 </span>
-                                                <span className={theme === "night" ? "text-[#d4d4d4]" : "text-[#1a1a1a]"}>
+                                                <span className={`${theme === "night" ? "text-[#d4d4d4]" : "text-[#1a1a1a]"} shrink-0`}>
                                                     :
                                                 </span>
-                                                <span className={theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"}>
+                                                <span className={`${theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"} shrink-0`}>
                                                     "
                                                 </span>
                                                 <input
@@ -230,27 +230,27 @@ export default function Contact() {
                                                     onBlur={() => setFocusedField(null)}
                                                     placeholder="Agent_Name"
                                                     required
-                                                    className={`flex-1 bg-transparent outline-none placeholder:opacity-60 text-base ${
+                                                    className={`flex-1 min-w-0 bg-transparent outline-none placeholder:opacity-60 text-xs sm:text-sm md:text-base ${
                                                         theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"
                                                     }`}
                                                 />
-                                                <span className={theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"}>
+                                                <span className={`${theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"} shrink-0`}>
                                                     "
                                                 </span>
-                                                <span className={theme === "night" ? "text-[#d4d4d4]" : "text-[#1a1a1a]"}>
+                                                <span className={`${theme === "night" ? "text-[#d4d4d4]" : "text-[#1a1a1a]"} shrink-0`}>
                                                     ,
                                                 </span>
                                             </div>
 
                                             {/* Email Field */}
-                                            <div className="pl-6 flex items-center gap-3">
-                                                <span className={theme === "night" ? "text-[#9cdcfe]" : "text-[#c41c3b]"}>
+                                            <div className="pl-3 sm:pl-6 flex items-center gap-1 sm:gap-2 md:gap-3 min-w-0">
+                                                <span className={`${theme === "night" ? "text-[#9cdcfe]" : "text-[#c41c3b]"} shrink-0 text-[10px] sm:text-xs md:text-sm`}>
                                                     "email"
                                                 </span>
-                                                <span className={theme === "night" ? "text-[#d4d4d4]" : "text-[#1a1a1a]"}>
+                                                <span className={`${theme === "night" ? "text-[#d4d4d4]" : "text-[#1a1a1a]"} shrink-0`}>
                                                     :
                                                 </span>
-                                                <span className={theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"}>
+                                                <span className={`${theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"} shrink-0`}>
                                                     "
                                                 </span>
                                                 <input
@@ -262,27 +262,27 @@ export default function Contact() {
                                                     onBlur={() => setFocusedField(null)}
                                                     placeholder="secure@channel.net"
                                                     required
-                                                    className={`flex-1 bg-transparent outline-none placeholder:opacity-60 text-base ${
+                                                    className={`flex-1 min-w-0 bg-transparent outline-none placeholder:opacity-60 text-xs sm:text-sm md:text-base ${
                                                         theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"
                                                     }`}
                                                 />
-                                                <span className={theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"}>
+                                                <span className={`${theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"} shrink-0`}>
                                                     "
                                                 </span>
-                                                <span className={theme === "night" ? "text-[#d4d4d4]" : "text-[#1a1a1a]"}>
+                                                <span className={`${theme === "night" ? "text-[#d4d4d4]" : "text-[#1a1a1a]"} shrink-0`}>
                                                     ,
                                                 </span>
                                             </div>
 
                                             {/* Subject Field */}
-                                            <div className="pl-6 flex items-center gap-3">
-                                                <span className={theme === "night" ? "text-[#9cdcfe]" : "text-[#c41c3b]"}>
+                                            <div className="pl-3 sm:pl-6 flex items-center gap-1 sm:gap-2 md:gap-3 min-w-0">
+                                                <span className={`${theme === "night" ? "text-[#9cdcfe]" : "text-[#c41c3b]"} shrink-0 text-[10px] sm:text-xs md:text-sm`}>
                                                     "subject"
                                                 </span>
-                                                <span className={theme === "night" ? "text-[#d4d4d4]" : "text-[#1a1a1a]"}>
+                                                <span className={`${theme === "night" ? "text-[#d4d4d4]" : "text-[#1a1a1a]"} shrink-0`}>
                                                     :
                                                 </span>
-                                                <span className={theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"}>
+                                                <span className={`${theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"} shrink-0`}>
                                                     "
                                                 </span>
                                                 <input
@@ -294,28 +294,28 @@ export default function Contact() {
                                                     onBlur={() => setFocusedField(null)}
                                                     placeholder="PRIORITY_LEVEL"
                                                     required
-                                                    className={`flex-1 bg-transparent outline-none placeholder:opacity-60 text-base ${
+                                                    className={`flex-1 min-w-0 bg-transparent outline-none placeholder:opacity-60 text-xs sm:text-sm md:text-base ${
                                                         theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"
                                                     }`}
                                                 />
-                                                <span className={theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"}>
+                                                <span className={`${theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"} shrink-0`}>
                                                     "
                                                 </span>
-                                                <span className={theme === "night" ? "text-[#d4d4d4]" : "text-[#1a1a1a]"}>
+                                                <span className={`${theme === "night" ? "text-[#d4d4d4]" : "text-[#1a1a1a]"} shrink-0`}>
                                                     ,
                                                 </span>
                                             </div>
 
                                             {/* Message Field */}
-                                            <div className="pl-6 flex gap-3">
-                                                <div className="flex items-start gap-3 flex-1 pt-1">
-                                                    <span className={theme === "night" ? "text-[#9cdcfe]" : "text-[#c41c3b]"}>
+                                            <div className="pl-3 sm:pl-6 flex gap-1 sm:gap-2 md:gap-3 min-w-0">
+                                                <div className="flex items-start gap-1 sm:gap-2 md:gap-3 flex-1 pt-1 min-w-0">
+                                                    <span className={`${theme === "night" ? "text-[#9cdcfe]" : "text-[#c41c3b]"} shrink-0 text-[10px] sm:text-xs md:text-sm`}>
                                                         "message"
                                                     </span>
-                                                    <span className={theme === "night" ? "text-[#d4d4d4]" : "text-[#1a1a1a]"}>
+                                                    <span className={`${theme === "night" ? "text-[#d4d4d4]" : "text-[#1a1a1a]"} shrink-0`}>
                                                         :
                                                     </span>
-                                                    <span className={theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"}>
+                                                    <span className={`${theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"} shrink-0`}>
                                                         "
                                                     </span>
                                                     <textarea
@@ -327,11 +327,11 @@ export default function Contact() {
                                                         placeholder="Transmit classified intel..."
                                                         required
                                                         rows={5}
-                                                        className={`flex-1 bg-transparent outline-none resize-none placeholder:opacity-60 text-base leading-relaxed ${
+                                                        className={`flex-1 min-w-0 bg-transparent outline-none resize-none placeholder:opacity-60 text-xs sm:text-sm md:text-base leading-relaxed ${
                                                             theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"
                                                         }`}
                                                     />
-                                                    <span className={theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"}>
+                                                    <span className={`${theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"} shrink-0`}>
                                                         "
                                                     </span>
                                                 </div>
@@ -347,13 +347,13 @@ export default function Contact() {
 
                                 {/* IDE Footer / Submit Bar */}
                                 <div
-                                    className={`flex items-center justify-between px-6 py-4 border-t font-space-mono text-xs ${
+                                    className={`flex flex-col sm:flex-row items-stretch sm:items-center justify-between px-3 sm:px-6 py-3 sm:py-4 border-t font-space-mono text-[10px] sm:text-xs gap-3 sm:gap-0 ${
                                         theme === "night"
                                             ? "bg-[#2d2d2d] border-[#3c3c3c] text-[#cccccc]"
                                             : "bg-[#e8e8e8] border-[var(--foreground)]/15 text-[var(--foreground)]"
                                     }`}
                                 >
-                                    <div className="flex items-center gap-6">
+                                    <div className="flex items-center gap-3 sm:gap-6 justify-center sm:justify-start">
                                         <span className="opacity-50">UTF-8</span>
                                         <span className="opacity-50">LF</span>
                                         <span className="opacity-50">JSON</span>
@@ -361,7 +361,7 @@ export default function Contact() {
                                     <button
                                         type="submit"
                                         disabled={isSubmitting || submitStatus === "success"}
-                                        className={`px-6 py-2.5 font-space-mono font-bold uppercase tracking-wider text-sm transition-all duration-200 border-2 relative overflow-hidden group ${
+                                        className={`px-4 sm:px-6 py-2 sm:py-2.5 font-space-mono font-bold uppercase tracking-wider text-xs sm:text-sm transition-all duration-200 border-2 relative overflow-hidden group ${
                                             submitStatus === "success"
                                                 ? "bg-[#27c93f] border-[#27c93f] text-white cursor-default"
                                                 : isSubmitting
@@ -373,15 +373,17 @@ export default function Contact() {
                                             {isSubmitting ? (
                                                 <>
                                                     <span className="inline-block animate-spin">⟳</span>
-                                                    Transmitting...
+                                                    <span className="hidden sm:inline">Transmitting...</span>
+                                                    <span className="sm:hidden">Sending...</span>
                                                 </>
                                             ) : submitStatus === "success" ? (
                                                 <>
-                                                    ✓ Transmitted
+                                                    ✓ <span className="hidden sm:inline">Transmitted</span><span className="sm:hidden">Sent</span>
                                                 </>
                                             ) : (
                                                 <>
-                                                    Execute Transmission
+                                                    <span className="hidden sm:inline">Execute Transmission</span>
+                                                    <span className="sm:hidden">Send Message</span>
                                                     <span className="group-hover:translate-x-1 transition-transform">→</span>
                                                 </>
                                             )}
@@ -397,7 +399,7 @@ export default function Contact() {
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
-                                className={`mt-6 p-5 border-2 font-space-mono text-sm font-medium tracking-wider uppercase ${
+                                className={`mt-4 sm:mt-6 p-3 sm:p-5 border-2 font-space-mono text-xs sm:text-sm font-medium tracking-wider uppercase ${
                                     theme === "night"
                                         ? "bg-[#27c93f]/15 border-[#27c93f] text-[#27c93f]"
                                         : "bg-[#27c93f]/10 border-[#27c93f] text-[#27c93f]"
@@ -407,7 +409,7 @@ export default function Contact() {
                                     transition: 'transform 0.2s ease-out',
                                 }}
                             >
-                                ✓ TRANSMISSION SUCCESSFUL — Message received and logged
+                                ✓ TRANSMISSION SUCCESSFUL — <span className="hidden sm:inline">Message received and logged</span><span className="sm:inline">Sent!</span>
                             </motion.div>
                         )}
 
@@ -416,7 +418,7 @@ export default function Contact() {
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
-                                className={`mt-6 p-5 border-2 font-space-mono text-sm font-medium tracking-wider uppercase ${
+                                className={`mt-4 sm:mt-6 p-3 sm:p-5 border-2 font-space-mono text-xs sm:text-sm font-medium tracking-wider uppercase ${
                                     theme === "night"
                                         ? "bg-[#ff5f56]/15 border-[#ff5f56] text-[#ff5f56]"
                                         : "bg-[#ff5f56]/10 border-[#ff5f56] text-[#ff5f56]"
@@ -426,7 +428,7 @@ export default function Contact() {
                                     transition: 'transform 0.2s ease-out',
                                 }}
                             >
-                                ⚠ TRANSMISSION FAILED — Please check your connection and try again
+                                ⚠ TRANSMISSION FAILED — <span className="hidden sm:inline">Please check your connection and try again</span><span className="sm:inline">Try again</span>
                             </motion.div>
                         )}
                     </motion.div>

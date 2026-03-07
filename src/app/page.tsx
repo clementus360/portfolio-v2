@@ -34,7 +34,7 @@ export default function Home() {
 
       {weather && (
         <WeatherCard
-          className="fixed bottom-8 right-8 lg:bottom-16 lg:right-32"
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 lg:bottom-16 lg:right-32"
           location={weather.location}
           temperature={weather.temp_c}
           condition={weather.condition}
