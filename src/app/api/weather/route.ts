@@ -1,5 +1,45 @@
 import { NextResponse } from "next/server";
 
+const WEATHER_TIMEOUT_MS = 20000;
+const WEATHER_MAX_ATTEMPTS = 2;
+
+function isTimeoutLikeError(error: unknown) {
+  if (!(error instanceof Error)) {
+    return false;
+  }
+
+  return (
+    error.name === "TimeoutError" ||
+    error.name === "AbortError" ||
+    error.message.includes("aborted due to timeout")
+  );
+}
+
+async function fetchWeatherWithRetry(url: string) {
+  let lastError: unknown = null;
+
+  for (let attempt = 1; attempt <= WEATHER_MAX_ATTEMPTS; attempt++) {
+    try {
+      return await fetch(url, {
+        cache: "no-store",
+        signal: AbortSignal.timeout(WEATHER_TIMEOUT_MS),
+      });
+    } catch (error) {
+      lastError = error;
+
+      if (!isTimeoutLikeError(error) || attempt === WEATHER_MAX_ATTEMPTS) {
+        throw error;
+      }
+
+      console.warn(
+        `Weather API timeout on attempt ${attempt}/${WEATHER_MAX_ATTEMPTS}. Retrying...`,
+      );
+    }
+  }
+
+  throw lastError;
+}
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const city = searchParams.get("city");
@@ -36,10 +76,7 @@ export async function GET(request: Request) {
   console.log("Fetching weather for query:", query);
 
   try {
-    const weatherResponse = await fetch(weatherApiUrl.toString(), {
-      cache: "no-store",
-      signal: AbortSignal.timeout(10000),
-    });
+    const weatherResponse = await fetchWeatherWithRetry(weatherApiUrl.toString());
 
     const contentType = weatherResponse.headers.get("content-type") || "";
     const responseText = await weatherResponse.text();
@@ -95,6 +132,19 @@ export async function GET(request: Request) {
 
     return NextResponse.json(weatherData, { status: 200 });
   } catch (error) {
+    if (isTimeoutLikeError(error)) {
+      console.warn("Weather fetch timed out", {
+        query,
+        timeoutMs: WEATHER_TIMEOUT_MS,
+        attempts: WEATHER_MAX_ATTEMPTS,
+      });
+
+      return NextResponse.json(
+        { error: "Weather service timeout. Please try again." },
+        { status: 504 },
+      );
+    }
+
     console.error("Weather fetch exception:", error);
     return NextResponse.json(
       { error: "Failed to fetch weather data" },
