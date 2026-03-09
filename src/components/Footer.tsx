@@ -1,6 +1,8 @@
+import Behance from "./Icons/social/Behance";
 import Github from "./Icons/social/Github";
 import Instagram from "./Icons/social/Instagram";
 import LinkedIn from "./Icons/social/LinkedIn";
+import Mail from "./Icons/social/Mail";
 import XLogo from "./Icons/social/XLogo";
 
 const socialLinks = [
@@ -13,6 +15,16 @@ const socialLinks = [
         label: "LinkedIn",
         href: "https://www.linkedin.com/in/clementus360",
         icon: LinkedIn,
+    },
+    {
+        label: "Behance",
+        href: "https://www.behance.net/clementishimwe",
+        icon: Behance,
+    },
+    {
+        label: "Mail",
+        href: "mailto:clementus360@gmail.com",
+        icon: Mail,
     },
     {
         label: "Instagram",

@@ -59,6 +59,7 @@ export default function Header() {
         { label: "QR Code Tool", href: "https://qr.ishimwe.dev", external: true },
         { label: "GitHub", href: "https://github.com/clementus360", external: true },
         { label: "LinkedIn", href: "https://www.linkedin.com/in/clementus360", external: true },
+        { label: "Behance", href: "https://www.behance.net/clementishimwe", external: true },
     ];
 
     return (

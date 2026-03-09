@@ -1,5 +1,12 @@
 import Image from "next/image";
-import type { CaseStudy } from "@/types/caseStudy";
+import type {
+  CaseStudy,
+  CaseStudyGalleryBlock,
+  CaseStudyInlineImageBlock,
+  CaseStudyPaletteBlock,
+  CaseStudyStatsBlock,
+  CaseStudyTextBlock,
+} from "@/types/caseStudy";
 import CaseStudyStats from "./CaseStudyStats";
 
 type CaseStudyContentProps = {
@@ -7,12 +14,21 @@ type CaseStudyContentProps = {
 };
 
 export default function CaseStudyContent({ caseStudy }: CaseStudyContentProps) {
-  const textBlocks = caseStudy.blocks.filter((block) => block.type === "text");
-  const inlineImageBlock = caseStudy.blocks.find(
-    (block) => block.type === "inlineImage",
+  const textBlocks = caseStudy.blocks.filter(
+    (block): block is CaseStudyTextBlock => block.type === "text",
   );
-  const galleryBlock = caseStudy.blocks.find((block) => block.type === "gallery");
-  const statsBlock = caseStudy.blocks.find((block) => block.type === "stats");
+  const inlineImageBlocks = caseStudy.blocks.filter(
+    (block): block is CaseStudyInlineImageBlock => block.type === "inlineImage",
+  );
+  const paletteBlocks = caseStudy.blocks.filter(
+    (block): block is CaseStudyPaletteBlock => block.type === "palette",
+  );
+  const galleryBlocks = caseStudy.blocks.filter(
+    (block): block is CaseStudyGalleryBlock => block.type === "gallery",
+  );
+  const statsBlocks = caseStudy.blocks.filter(
+    (block): block is CaseStudyStatsBlock => block.type === "stats",
+  );
 
   const rationaleParagraphs =
     caseStudy.rationale && caseStudy.rationale.length > 0
@@ -94,6 +110,87 @@ export default function CaseStudyContent({ caseStudy }: CaseStudyContentProps) {
           </section>
         )}
 
+        {textBlocks.length > 0 && (
+          <section className="border border-[var(--menu-border)] bg-[var(--weather-card-bg)] p-6 md:p-8 space-y-6">
+            <h3 className="font-nexa text-2xl md:text-3xl font-bold text-primary uppercase">
+              Case Sections
+            </h3>
+
+            <div
+              className={`grid grid-cols-1 gap-5 ${
+                textBlocks.length > 1 ? "md:grid-cols-2" : ""
+              }`}
+            >
+              {textBlocks.map((block, index) => (
+                <article
+                  key={`${block.title || "section"}-${index}`}
+                  className="border border-[var(--foreground)]/10 bg-[var(--foreground)]/5 p-5 space-y-3"
+                >
+                  <h4 className="font-space-mono text-[11px] uppercase tracking-[0.16em] text-primary">
+                    {block.title || `Section ${index + 1}`}
+                  </h4>
+                  <p className="text-base leading-relaxed text-[var(--foreground)]/95">
+                    {block.content}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {paletteBlocks.length > 0 && (
+          <section className="border border-[var(--menu-border)] bg-[var(--weather-card-bg)] p-6 md:p-8 space-y-6">
+            <h3 className="font-nexa text-2xl md:text-3xl font-bold text-primary uppercase">
+              Visual Identity
+            </h3>
+
+            <div className="space-y-6">
+              {paletteBlocks.map((block, blockIndex) => (
+                <article
+                  key={`${block.title || "palette"}-${blockIndex}`}
+                  className="border border-[var(--foreground)]/10 bg-[var(--foreground)]/5 p-5 space-y-4"
+                >
+                  <div className="space-y-2">
+                    <h4 className="font-space-mono text-[11px] uppercase tracking-[0.16em] text-primary">
+                      {block.title || "Palette"}
+                    </h4>
+                    {block.description && (
+                      <p className="text-sm md:text-base leading-relaxed text-[var(--foreground)]/90">
+                        {block.description}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {block.colors.map((color) => (
+                      <div
+                        key={`${color.name}-${color.hex}`}
+                        className="border border-[var(--foreground)]/10 bg-[var(--background)] p-2"
+                      >
+                        <div
+                          className="h-14 w-full border border-[var(--foreground)]/10"
+                          style={{ backgroundColor: color.hex }}
+                          aria-label={`${color.name} swatch`}
+                        />
+                        <div className="mt-2 space-y-1">
+                          <p className="font-space-mono text-[11px] uppercase tracking-[0.08em] text-[var(--foreground)]/90">
+                            {color.name}
+                          </p>
+                          {color.role && (
+                            <p className="text-xs text-[var(--foreground)]/70">
+                              {color.role}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
+
         <section className="border border-[var(--menu-border)] bg-[var(--weather-card-bg)] p-6 md:p-8 space-y-5">
           <h3 className="font-nexa text-2xl md:text-3xl font-bold text-primary uppercase">
             Evidence
@@ -119,52 +216,63 @@ export default function CaseStudyContent({ caseStudy }: CaseStudyContentProps) {
               )}
             </figure>
 
-            {inlineImageBlock && (
-              <figure className="break-inside-avoid mb-5 border border-[var(--foreground)]/10 bg-[var(--foreground)]/5 p-2">
-                <div className="relative w-full overflow-hidden border border-[var(--foreground)]/10">
-                  <Image
-                    src={inlineImageBlock.image.src}
-                    alt={inlineImageBlock.image.alt}
-                    width={1200}
-                    height={800}
-                    className="w-full h-auto"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                </div>
-                {inlineImageBlock.image.caption && (
-                  <figcaption className="font-space-mono text-[11px] text-[var(--foreground)]/70 border-l-2 border-primary pl-3 mt-2 uppercase tracking-[0.05em]">
-                    {inlineImageBlock.image.caption}
-                  </figcaption>
-                )}
-              </figure>
-            )}
-
-            {galleryBlock && galleryBlock.images.map((image) => (
+            {inlineImageBlocks.map((block, index) => (
               <figure
-                key={`${image.src}-${image.alt}`}
+                key={`${block.image.src}-${block.image.alt}-${index}`}
                 className="break-inside-avoid mb-5 border border-[var(--foreground)]/10 bg-[var(--foreground)]/5 p-2"
               >
                 <div className="relative w-full overflow-hidden border border-[var(--foreground)]/10">
                   <Image
-                    src={image.src}
-                    alt={image.alt}
+                    src={block.image.src}
+                    alt={block.image.alt}
                     width={1200}
                     height={800}
                     className="w-full h-auto"
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 </div>
-                {image.caption && (
-                  <figcaption className="font-space-mono text-[10px] text-[var(--foreground)]/70 border-l-2 border-primary pl-2 mt-2 uppercase tracking-[0.05em]">
-                    {image.caption}
+                {(block.image.caption || block.title) && (
+                  <figcaption className="font-space-mono text-[11px] text-[var(--foreground)]/70 border-l-2 border-primary pl-3 mt-2 uppercase tracking-[0.05em]">
+                    {block.title || block.image.caption}
                   </figcaption>
                 )}
               </figure>
             ))}
+
+            {galleryBlocks.map((block, galleryIndex) =>
+              block.images.map((image, imageIndex) => (
+                <figure
+                  key={`${image.src}-${image.alt}-${galleryIndex}-${imageIndex}`}
+                  className="break-inside-avoid mb-5 border border-[var(--foreground)]/10 bg-[var(--foreground)]/5 p-2"
+                >
+                  <div className="relative w-full overflow-hidden border border-[var(--foreground)]/10">
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      width={1200}
+                      height={800}
+                      className="w-full h-auto"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  </div>
+                  {(image.caption || (imageIndex === 0 && block.title)) && (
+                    <figcaption className="font-space-mono text-[10px] text-[var(--foreground)]/70 border-l-2 border-primary pl-2 mt-2 uppercase tracking-[0.05em]">
+                      {image.caption || block.title}
+                    </figcaption>
+                  )}
+                </figure>
+              )),
+            )}
           </div>
         </section>
 
-        {statsBlock && <CaseStudyStats title={statsBlock.title} stats={statsBlock.stats} />}
+        {statsBlocks.map((block, index) => (
+          <CaseStudyStats
+            key={`${block.title || "stats"}-${index}`}
+            title={block.title}
+            stats={block.stats}
+          />
+        ))}
       </article>
     </main>
   );

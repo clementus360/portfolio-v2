@@ -16,6 +16,19 @@ export type CaseStudyTextBlock = {
   content: string;
 };
 
+export type CaseStudyPaletteColor = {
+  name: string;
+  hex: string;
+  role?: string;
+};
+
+export type CaseStudyPaletteBlock = {
+  type: "palette";
+  title?: string;
+  description?: string;
+  colors: CaseStudyPaletteColor[];
+};
+
 export type CaseStudyInlineImageBlock = {
   type: "inlineImage";
   title?: string;
@@ -36,6 +49,7 @@ export type CaseStudyStatsBlock = {
 
 export type CaseStudyBlock =
   | CaseStudyTextBlock
+  | CaseStudyPaletteBlock
   | CaseStudyInlineImageBlock
   | CaseStudyGalleryBlock
   | CaseStudyStatsBlock;

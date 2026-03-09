@@ -14,7 +14,7 @@ export async function GET(request: Request) {
     query = `${lat},${lon}`;
   } else if (city && city.trim()) {
     // Use city name
-    query = city;
+    query = city.trim().replace(/[.,;:!?]+$/g, "");
   } else {
     // Default to Kigali
     query = "Kigali";
@@ -38,15 +38,58 @@ export async function GET(request: Request) {
   try {
     const weatherResponse = await fetch(weatherApiUrl.toString(), {
       cache: "no-store",
+      signal: AbortSignal.timeout(10000),
     });
 
-    const weatherData = await weatherResponse.json();
+    const contentType = weatherResponse.headers.get("content-type") || "";
+    const responseText = await weatherResponse.text();
+    let weatherData: Record<string, unknown> | null = null;
+
+    if (responseText) {
+      if (contentType.includes("application/json")) {
+        weatherData = JSON.parse(responseText) as Record<string, unknown>;
+      } else {
+        try {
+          weatherData = JSON.parse(responseText) as Record<string, unknown>;
+        } catch {
+          weatherData = null;
+        }
+      }
+    }
 
     if (!weatherResponse.ok) {
-      console.error("Weather API error:", weatherData);
+      console.error("Weather API error:", {
+        status: weatherResponse.status,
+        contentType,
+        bodyPreview: responseText.slice(0, 200),
+      });
+
+      const weatherError =
+        weatherData &&
+        typeof weatherData === "object" &&
+        "error" in weatherData &&
+        weatherData.error &&
+        typeof weatherData.error === "object" &&
+        "message" in weatherData.error &&
+        typeof weatherData.error.message === "string"
+          ? weatherData.error.message
+          : "Weather API request failed";
+
       return NextResponse.json(
-        { error: weatherData?.error?.message || "Weather API request failed" },
+        { error: weatherError },
         { status: weatherResponse.status },
+      );
+    }
+
+    if (!weatherData) {
+      console.error("Weather API returned non-JSON success response", {
+        contentType,
+        bodyPreview: responseText.slice(0, 200),
+      });
+
+      return NextResponse.json(
+        { error: "Weather API returned invalid response format" },
+        { status: 502 },
       );
     }
 

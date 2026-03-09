@@ -185,7 +185,7 @@ export default function About() {
                     {/* Left Column - ID Card */}
                     <div className="space-y-4">
                         <div 
-                            className="relative rotate-[-2deg] transition-transform duration-300 hover:rotate-0"
+                            className="relative rotate-[-2deg] bg-[var(--weather-card-bg)] transition-transform duration-300 hover:rotate-0"
                             style={{
                                 transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4 + scrollY * -0.08}px, 0) rotate(-2deg)` : 'rotate(-2deg)',
                                 transition: 'transform 0.2s ease-out',
@@ -456,11 +456,65 @@ export default function About() {
                                             Subject independently designed and engineered an AI-driven coaching platform. Built a concurrent backend in <RedactedText>Go</RedactedText> and a responsive frontend in <RedactedText>SvelteKit</RedactedText> — entirely self-directed. Purpose: help users untangle thoughts and generate actionable tasks.
                                         </p>
 
+                                        <a
+                                            href="https://ai-helper-client.vercel.app/login"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 font-space-mono text-xs text-primary hover:text-primary/80 transition-colors uppercase tracking-wide"
+                                        >
+                                            View Live Project ↗
+                                        </a>
+
                                         <div className="border-t border-primary/20 pt-3">
                                             <p className="font-space-mono text-xs text-foreground/75 uppercase tracking-wide">
                                                 <span className="text-foreground/60">Assessment:</span> High initiative. No instructions required.
                                             </p>
                                         </div>
+                                    </div>
+
+                                    <div className="rounded border border-foreground/20 bg-background/60 p-5">
+                                        <div className="flex items-start justify-between gap-3 mb-3">
+                                            <div>
+                                                <h4 className="font-space-mono text-sm font-bold uppercase">Operation: Static QR Generator</h4>
+                                                <p className="font-space-mono text-xs text-foreground/70 mt-1">CODENAME: QR Space | YEAR: 2026</p>
+                                            </div>
+                                            <span className="inline-flex items-center gap-1.5 px-2 py-1 bg-foreground/10 border border-foreground/20 rounded font-space-mono text-[10px] text-foreground/80 uppercase whitespace-nowrap">
+                                                Public Utility
+                                            </span>
+                                        </div>
+
+                                        <p className="text-sm leading-relaxed text-foreground/90 mb-3">
+                                            Built a free static QR code generator to help people avoid unreasonable recurring platform costs. Lightweight, fast, and focused on instant QR generation with zero friction.
+                                        </p>
+
+                                        <a
+                                            href="https://qr.ishimwe.dev"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 font-space-mono text-xs text-primary hover:text-primary/80 transition-colors uppercase tracking-wide"
+                                        >
+                                            Open QR Tool ↗
+                                        </a>
+                                    </div>
+
+                                    <div className="rounded border border-foreground/20 bg-background/60 p-5">
+                                        <div className="flex items-start justify-between gap-3 mb-3">
+                                            <div>
+                                                <h4 className="font-space-mono text-sm font-bold uppercase">Operation: Streaming Platform</h4>
+                                                <p className="font-space-mono text-xs text-foreground/70 mt-1">CODENAME: Space Stream | STATUS: IN DEVELOPMENT</p>
+                                            </div>
+                                            <span className="inline-flex items-center gap-1.5 px-2 py-1 bg-green-500/15 border border-green-500/40 rounded font-space-mono text-[10px] text-green-600 uppercase whitespace-nowrap">
+                                                Solo Build
+                                            </span>
+                                        </div>
+
+                                        <p className="text-sm leading-relaxed text-foreground/90 mb-3">
+                                            Currently architecting and building a streaming service from scratch using a microservices approach. Stack includes <RedactedText>Go</RedactedText> backend services, <RedactedText>FFmpeg</RedactedText>, <RedactedText>RTMP</RedactedText>, <RedactedText>HLS</RedactedText>, <RedactedText>gRPC</RedactedText>, and a <RedactedText>Next.js</RedactedText> frontend.
+                                        </p>
+
+                                        <p className="font-space-mono text-xs text-foreground/70 uppercase tracking-wide">
+                                            <span className="text-foreground/60">Assessment:</span> High-complexity infrastructure mission. Exceptional execution discipline.
+                                        </p>
                                     </div>
                                 </div>
                             )}

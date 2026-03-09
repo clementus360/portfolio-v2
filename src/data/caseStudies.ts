@@ -3,33 +3,50 @@ import type { CaseStudy } from "@/types/caseStudy";
 export const caseStudies: CaseStudy[] = [
     {
         slug: "eco-home",
-        title: "Ecohome",
+        title: "EcoHome",
         subtitle: "Smart home control interface",
         summary:
-            "A smart home application designed to simplify device monitoring and control through a clean, modern interface.",
+            "A smart home application designed for a technical assessment, aiming to simplify device management and monitoring through a sleek, modern interface.",
         rationale: [
-            "The focus was clarity over novelty. The interface prioritizes fast comprehension, minimal steps, and predictable interactions.",
-            "A structured component system ensures scalability as new devices and features are added.",
+            "The design process began with research and moodboarding to establish a sleek, modern aesthetic, followed by sketching and wireframing to define the app's structure.",
+            "A component system was developed with reusable UI elements like buttons, cards, and toggles to ensure consistency and scalability.",
+            "The visual direction uses Poppins for its geometric, modern aesthetic and high readability on digital interfaces.",
         ],
         year: "2024",
         client: "Technical Assessment",
-        role: ["UI/UX Design", "Component System Design"],
+        role: ["UI/UX Design", "Prototyping"],
         stack: ["Figma"],
         impact: "personal",
-        discipline: "UX + UI DESIGN",
-        mission: "Simplify smart home control through intuitive design and minimal cognitive load",
+        discipline: "UI/UX CASE STUDY",
+        mission: "Simplify smart home control through an intuitive, efficient, and visually modern interface.",
         blocks: [
             {
                 type: "text",
                 title: "Objective",
                 content:
-                    "Create an intuitive smart home dashboard that allows users to monitor and control devices with minimal cognitive load.",
+                    "Create a refined smart home management experience that prioritizes simplicity and usability, allowing users to easily monitor and control devices.",
             },
             {
-                type: "text",
-                title: "Design Direction",
-                content:
-                    "A sleek, modern, and minimal aesthetic with strong hierarchy, clear navigation, and consistent spacing to support daily usage.",
+                type: "palette",
+                title: "Visual Identity",
+                description: "A palette balancing vibrancy and sophistication.",
+                colors: [
+                    {
+                        name: "Bright Teal",
+                        hex: "#06D6A0",
+                        role: "Primary energy accent",
+                    },
+                    {
+                        name: "Muted Purple",
+                        hex: "#8A89C0",
+                        role: "Tech-forward supporting tone",
+                    },
+                    {
+                        name: "Neutral Gray",
+                        hex: "#6D6D6D",
+                        role: "Readable UI text and neutral balance",
+                    },
+                ],
             },
             {
                 type: "gallery",
@@ -78,28 +95,36 @@ export const caseStudies: CaseStudy[] = [
         title: "Pinn Creative Hub",
         subtitle: "Agency website for branding and digital services",
         summary:
-            "A bold, modern website designed to showcase an agency’s expertise in branding, web design, and social media.",
+            "A modern, bold, and visually dynamic website designed to showcase the agency’s expertise in branding, web design, and social media.",
         rationale: [
-            "The layout emphasizes clarity of services while maintaining a strong visual personality.",
-            "Typography and color were used deliberately to balance professionalism with creative confidence.",
+            "The design uses a clean structure and striking typography (Gilroy) to create an engaging experience that balances creativity with professionalism.",
+            "The wireframing stage prioritized well-defined sections for services and portfolio to refine navigation and content placement.",
         ],
         year: "2025",
         client: "Pinn Creative Hub",
-        role: ["UI/UX Design", "Web Design"],
-        stack: ["Figma"],        impact: "personal",
-        discipline: "UI DESIGN + WEB",
-        mission: "Establish credible agency presence with conversion-focused visual storytelling",        blocks: [
+        role: ["UI/UX Design"],
+        stack: ["Figma"],
+        impact: "personal",
+        discipline: "UI/UX CASE STUDY",
+        mission: "Establish a credible agency presence through striking typography and clear calls to action.",
+        blocks: [
             {
-                type: "text",
-                title: "Goal",
-                content:
-                    "Present the agency’s services and portfolio in a way that is engaging, credible, and conversion-focused.",
-            },
-            {
-                type: "text",
-                title: "Outcome",
-                content:
-                    "A clean, structured site with strong visual contrast, smooth navigation, and clear calls to action.",
+                type: "palette",
+                title: "Visual Strategy",
+                description:
+                    "Deep trust-driven base with energetic highlights for key actions.",
+                colors: [
+                    {
+                        name: "Deep Navy",
+                        hex: "#031525",
+                        role: "Primary foundation and depth",
+                    },
+                    {
+                        name: "Vibrant Blue",
+                        hex: "#0096FF",
+                        role: "Interactive highlights and emphasis",
+                    },
+                ],
             },
             {
                 type: "gallery",
@@ -140,30 +165,40 @@ export const caseStudies: CaseStudy[] = [
         title: "Funky Monkey Arcade",
         subtitle: "Immersive arcade website experience",
         summary:
-            "A high-energy website capturing the excitement and personality of an arcade environment.",
+            "A visually dynamic and immersive platform designed to capture the excitement and fun atmosphere of the arcade experience.",
         rationale: [
-            "The design leans into bold color, playful typography, and motion to reflect the physical arcade experience.",
-            "Despite the visual intensity, layout and navigation remain straightforward.",
+            "The design utilizes bright accents against a dark background to make key sections pop and draw users into the arcade experience.",
+            "Typography pairs Gilroy for stylish readability with 'Play,' a futuristic typeface that adds a tech-inspired, arcade-like feel.",
         ],
         year: "2025",
         client: "Funky Monkey Arcade",
-        role: ["UI Design", "Visual Direction"],
+        role: ["UI/UX Design"],
         stack: ["Figma"],
         impact: "personal",
-        discipline: "UI DESIGN + BRANDING",
-        mission: "Translate arcade sensory experience into engaging digital interface",
+        discipline: "UI/UX CASE STUDY",
+        mission: "Translate the arcade's energy into a digital interface through bold colors and dynamic visuals.",
         blocks: [
             {
-                type: "text",
-                title: "Design Intent",
-                content:
-                    "Translate the sensory overload of arcade gaming into a digital interface without sacrificing usability.",
-            },
-            {
-                type: "text",
+                type: "palette",
                 title: "Visual Language",
-                content:
-                    "Bright accents on dark surfaces, dynamic typography, and motion-forward composition.",
+                description: "Arcade energy with strong contrast and controlled balance.",
+                colors: [
+                    {
+                        name: "Bold Pink-Red",
+                        hex: "#DA1C5C",
+                        role: "Vibrant hero and CTA accent",
+                    },
+                    {
+                        name: "Neutral Gray",
+                        hex: "#686868",
+                        role: "Supportive neutral balance",
+                    },
+                    {
+                        name: "Deep Navy Black",
+                        hex: "#050917",
+                        role: "Immersive background contrast",
+                    },
+                ],
             },
             {
                 type: "gallery",
@@ -200,38 +235,55 @@ export const caseStudies: CaseStudy[] = [
         title: "Renova",
         subtitle: "Fintech platform for bookkeeping and payroll",
         summary:
-            "A fintech website designed to establish trust, simplify complex services, and drive organic growth.",
+            "A fintech platform that streamlines outsourced bookkeeping and payroll, enabling businesses to focus on growth through a professional, trust-driven design.",
         rationale: [
-            "Trust and clarity were treated as primary UX goals, especially for non-technical business owners.",
-            "Content hierarchy and modular service architecture reduce friction during decision-making.",
+            "The design strategy focused on mapping user journeys to simplify the transition from traditional accounting to digital-first experiences.",
+            "A modular service architecture and a transparent 5-step onboarding flow were implemented to make high-density financial info intuitive.",
         ],
         year: "2025",
         client: "Renova",
-        role: ["UI/UX Design", "Frontend Development", "SEO Optimization"],
+        role: ["UI/UX Design", "Full-Stack Development"],
         stack: ["Next.js", "Tailwind CSS"],
         impact: "notable",
-        discipline: "UX + ENGINEERING + SEO",
-        mission: "Top 10 Google ranking achieved within 90 days through trust-driven design",
+        discipline: "UI/UX CASE STUDY",
+        mission: "Establish trust and clarity by simplifying complex financial consulting into accessible service tiers.",
         blocks: [
             {
-                type: "text",
-                title: "Problem",
-                content:
-                    "Communicate complex financial services in a way that feels accessible, transparent, and credible.",
+                type: "palette",
+                title: "Visual Identity",
+                description:
+                    "Trust-first palette with restrained premium emphasis.",
+                colors: [
+                    {
+                        name: "Deep Forest Green",
+                        hex: "#0F4A28",
+                        role: "Trust, stability, and authority",
+                    },
+                    {
+                        name: "Muted Gold",
+                        hex: "#CCA75E",
+                        role: "Premium accents and hierarchy highlights",
+                    },
+                ],
             },
             {
                 type: "stats",
-                title: "Impact",
+                title: "The Impact",
                 stats: [
                     {
                         label: "Google Ranking",
                         value: "Top 10",
-                        description: "Within 90 days of launch",
+                        description: "Achieved within the first 90 days.",
                     },
                     {
-                        label: "Organic Visibility",
-                        value: "↑",
-                        description: "Significant increase in impressions",
+                        label: "Total Impressions",
+                        value: "1.72k",
+                        description: "Organic search visibility increase.",
+                    },
+                    {
+                        label: "Unique Impressions",
+                        value: "1000+",
+                        description: "Significant growth in reach.",
                     },
                 ],
             },
@@ -278,30 +330,37 @@ export const caseStudies: CaseStudy[] = [
         title: "25x Caregiver Recruiting",
         subtitle: "High-velocity caregiver recruitment platform",
         summary:
-            "A recruitment platform designed to eliminate application friction and scale caregiver hiring.",
+            "A high-conversion ecosystem designed to connect top talent to homes 25x faster by removing application friction.",
         rationale: [
-            "The UX prioritizes speed and accessibility, recognizing that caregivers often apply on mobile and under time pressure.",
-            "High-contrast visual cues guide users toward rapid completion.",
+            "The UX strategy optimized the application flow for caregivers on the go, allowing completion in under 3 minutes.",
+            "The recruiter-facing side features a high-velocity system for candidate management with zero friction from application to onboarding.",
+            "Inter was selected for typography to ensure exceptional legibility and a professional tone on data-heavy platforms.",
         ],
         year: "2024",
         client: "25x Caregiver Recruiting",
         role: ["UX Strategy", "UI Design"],
         stack: ["Figma"],
         impact: "high",
-        discipline: "UX + ENGINEERING",
-        mission: "Scale caregiver hiring with sub-3-minute application flow reducing time-to-hire by 65%",
+        discipline: "UI/UX CASE STUDY",
+        mission: "Tackle labor shortages with a fast application flow and zero-friction recruiter pipelines.",
         blocks: [
             {
-                type: "text",
-                title: "UX Strategy",
-                content:
-                    "Design an application flow that can be completed in under three minutes without sacrificing data quality.",
-            },
-            {
-                type: "text",
-                title: "System Design",
-                content:
-                    "A recruiter-facing pipeline optimized for speed, visibility, and low operational friction.",
+                type: "palette",
+                title: "Visual Strategy",
+                description:
+                    "Professional authority balanced with high-contrast action cues.",
+                colors: [
+                    {
+                        name: "Deep Steel Blue",
+                        hex: "#194D80",
+                        role: "Core professional foundation",
+                    },
+                    {
+                        name: "Burnt Orange",
+                        hex: "#F47F40",
+                        role: "Critical call-to-action contrast",
+                    },
+                ],
             },
             {
                 type: "gallery",
