@@ -102,10 +102,10 @@ export const caseStudies: CaseStudy[] = [
         ],
         year: "2025",
         client: "Pinn Creative Hub",
-        role: ["UI/UX Design"],
-        stack: ["Figma"],
+        role: ["UI/UX Design", "Frontend Development"],
+        stack: ["Next.js", "Tailwind CSS", "Figma"],
         impact: "personal",
-        discipline: "UI/UX CASE STUDY",
+        discipline: "UI/UX & WEB DEV CASE STUDY",
         mission: "Establish a credible agency presence through striking typography and clear calls to action.",
         blocks: [
             {
@@ -172,10 +172,10 @@ export const caseStudies: CaseStudy[] = [
         ],
         year: "2025",
         client: "Funky Monkey Arcade",
-        role: ["UI/UX Design"],
-        stack: ["Figma"],
+        role: ["UI/UX Design", "Web Development"],
+        stack: ["Next.js", "Tailwind CSS", "Figma"],
         impact: "personal",
-        discipline: "UI/UX CASE STUDY",
+        discipline: "UI/UX & WEB DEV CASE STUDY",
         mission: "Translate the arcade's energy into a digital interface through bold colors and dynamic visuals.",
         blocks: [
             {
@@ -242,10 +242,10 @@ export const caseStudies: CaseStudy[] = [
         ],
         year: "2025",
         client: "Renova",
-        role: ["UI/UX Design", "Full-Stack Development"],
-        stack: ["Next.js", "Tailwind CSS"],
+        role: ["Web Development"],
+        stack: ["Wordpress"],
         impact: "notable",
-        discipline: "UI/UX CASE STUDY",
+        discipline: "WEB DEV CASE STUDY",
         mission: "Establish trust and clarity by simplifying complex financial consulting into accessible service tiers.",
         blocks: [
             {
@@ -338,10 +338,10 @@ export const caseStudies: CaseStudy[] = [
         ],
         year: "2024",
         client: "25x Caregiver Recruiting",
-        role: ["UX Strategy", "UI Design"],
-        stack: ["Figma"],
+        role: ["UX Strategy", "UI Design", "Frontend Development"],
+        stack: ["Next.js", "Tailwind CSS", "Figma"],
         impact: "high",
-        discipline: "UI/UX CASE STUDY",
+        discipline: "UI/UX & WEB DEV CASE STUDY",
         mission: "Tackle labor shortages with a fast application flow and zero-friction recruiter pipelines.",
         blocks: [
             {
