@@ -38,9 +38,12 @@ const Nexa = localFont({
 
 
 // add favicon and OG image in public/ and reference here if needed
+const ogImageUrl = "https://res.cloudinary.com/dpfonnjv3/image/upload/v1772529878/twitter_hvlaq0.png";
+
 export const metadata: Metadata = {
   title: "Ishimwe Clement",
   description: "Portfolio of Clementus360 — jack of all trades in design & development.",
+  metadataBase: new URL("https://ishimwe.dev"),
   openGraph: {
     title: "Ishimwe Clement",
     description: "Portfolio of Clementus360 — jack of all trades in design & development.",
@@ -48,14 +51,22 @@ export const metadata: Metadata = {
     siteName: "Ishimwe Clement Portfolio",
     images: [
       {
-        url: "https://res.cloudinary.com/dpfonnjv3/image/upload/v1772529878/twitter_hvlaq0.png",
+        url: ogImageUrl,
         width: 1200,
         height: 630,
         alt: "Ishimwe Clement Portfolio Preview",
+        type: "image/png",
       },
     ],
     locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ishimwe Clement",
+    description: "Portfolio of Clementus360 — jack of all trades in design & development.",
+    creator: "@clementus360",
+    images: [ogImageUrl],
   },
 };
 
