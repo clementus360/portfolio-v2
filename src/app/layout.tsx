@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import { WeatherProvider } from "@/context/WeatherContext";
 
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 // Roboto (body, UI, readable)
 const roboto = Roboto({
@@ -72,6 +73,7 @@ export default function RootLayout({
         className={`${roboto.variable} ${sacramento.variable} ${spaceMono.variable} ${Nexa.variable} bg-[var(--background)] text-[var(--foreground)] antialiased`}
       >
         <Analytics mode={analyticsMode} debug={process.env.NODE_ENV === "development"} />
+        <SpeedInsights />
         <Header />
         <WeatherProvider>
           {children}
