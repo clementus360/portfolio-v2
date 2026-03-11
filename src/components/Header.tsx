@@ -38,12 +38,12 @@ export default function Header() {
     useEffect(() => {
         // Prevent scroll when menu is open
         if (isMenuOpen) {
-            document.body.style.overflow = "hidden";
+            document.body.style.overflowY = "hidden";
         } else {
-            document.body.style.overflow = "unset";
+            document.body.style.overflowY = "auto";
         }
         return () => {
-            document.body.style.overflow = "unset";
+            document.body.style.overflowY = "";
         };
     }, [isMenuOpen]);
 
