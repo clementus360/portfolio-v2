@@ -11,6 +11,7 @@ export default function Header() {
     const pathname = usePathname();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const mobileMenuId = "mobile-site-menu";
 
     const handleNavClick = (sectionId: string) => {
         if (pathname === "/") {
@@ -47,6 +48,20 @@ export default function Header() {
         };
     }, [isMenuOpen]);
 
+    useEffect(() => {
+        const handleEscape = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                setIsMenuOpen(false);
+            }
+        };
+
+        if (isMenuOpen) {
+            window.addEventListener("keydown", handleEscape);
+        }
+
+        return () => window.removeEventListener("keydown", handleEscape);
+    }, [isMenuOpen]);
+
     const menuItems = [
         { label: "ABOUT", href: "#about" },
         { label: "WORKS", href: "#works" },
@@ -71,28 +86,34 @@ export default function Header() {
                         : ""
                         }`}
                 >
-                    <Link href="/" className="flex items-center gap-2">
+                    <Link href="/" aria-label="Home" className="flex items-center gap-2">
                         <Logo className="w-12 md:w-16 text-[var(--foreground)]" />
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <ul className="hidden lg:flex gap-16 text-xs text-center">
-                        {menuItems.map((item) => (
-                            <li key={item.label}>
-                                <button
-                                    onClick={() => handleNavClick(item.href.slice(1))}
-                                    className="text-[var(--foreground)] hover:font-bold hover:text-primary cursor-pointer transition-all bg-none border-none padding-0"
-                                >
-                                    {item.label}
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
+                    <nav className="hidden lg:block" aria-label="Primary navigation">
+                        <ul className="flex gap-16 text-xs text-center">
+                            {menuItems.map((item) => (
+                                <li key={item.label}>
+                                    <button
+                                        onClick={() => handleNavClick(item.href.slice(1))}
+                                        className="text-[var(--foreground)] hover:font-bold hover:text-primary cursor-pointer transition-all bg-none border-none padding-0"
+                                        aria-label={item.label}
+                                    >
+                                        {item.label}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
 
                     <button
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                         className="focus:outline-none"
                         aria-label="Toggle menu"
+                        aria-haspopup="dialog"
+                        aria-expanded={isMenuOpen}
+                        aria-controls={mobileMenuId}
                     >
                         <Menu className="w-6 md:w-8 text-[var(--foreground)] hover:text-primary cursor-pointer transition-colors" />
                     </button>
@@ -100,16 +121,23 @@ export default function Header() {
             </div>
 
             {/* Overlay */}
-            <div
+            <button
+                type="button"
                 className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] transition-opacity duration-300 ${isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
                     }`}
                 onClick={() => setIsMenuOpen(false)}
+                aria-label="Close menu overlay"
             />
 
             {/* Slide-in Menu */}
             <div
+                id={mobileMenuId}
                 className={`fixed top-0 right-0 h-screen w-full sm:w-96 backdrop-blur-xl shadow-2xl z-[70] transform transition-transform duration-300 ease-in-out ${isMenuOpen ? "translate-x-0" : "translate-x-full"
                     }`}
+                role="dialog"
+                aria-modal="true"
+                aria-label="Site menu"
+                aria-hidden={!isMenuOpen}
                 style={{
                     backgroundColor: 'var(--menu-bg)',
                     borderLeft: '1px solid var(--menu-border)'
@@ -138,7 +166,7 @@ export default function Header() {
                     </button>
 
                     {/* Navigation Links - Mobile/Tablet */}
-                    <nav className="flex flex-col gap-6 mb-12 lg:hidden">
+                    <nav className="flex flex-col gap-6 mb-12 lg:hidden" aria-label="Mobile navigation">
                         <h3 className="text-xs font-bold text-[var(--foreground)]/60 mb-2">NAVIGATION</h3>
                         {menuItems.map((item) => (
                             <button
@@ -155,7 +183,7 @@ export default function Header() {
                     <div className="h-px mb-8 lg:hidden" style={{ backgroundColor: 'var(--menu-divider)' }} />
 
                     {/* External Links */}
-                    <nav className="flex flex-col gap-6">
+                    <nav className="flex flex-col gap-6" aria-label="External resources">
                         <h3 className="text-xs font-bold text-[var(--foreground)]/60 mb-2">RESOURCES</h3>
                         {externalLinks.map((item) => (
                             <a
@@ -164,6 +192,7 @@ export default function Header() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center gap-2 text-lg font-medium text-[var(--foreground)] hover:text-primary transition-colors group"
+                                aria-label={`${item.label} (opens in a new tab)`}
                             >
                                 {item.label}
                                 <svg
@@ -171,6 +200,8 @@ export default function Header() {
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
+                                    aria-hidden="true"
+                                    focusable="false"
                                 >
                                     <path
                                         strokeLinecap="round"

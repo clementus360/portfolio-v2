@@ -76,7 +76,7 @@ const RainBackground: React.FC<RainBackgroundProps> = ({
         createRipples(x, y);
     };
 
-    return <div ref={containerRef} className="rain-background" onClick={handleClick}/>;
+    return <div ref={containerRef} className="rain-background" onClick={handleClick} aria-hidden="true" />;
 };
 
 export default RainBackground;

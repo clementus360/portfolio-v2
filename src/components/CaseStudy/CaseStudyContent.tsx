@@ -36,7 +36,7 @@ export default function CaseStudyContent({ caseStudy }: CaseStudyContentProps) {
       : textBlocks.slice(0, 2).map((block) => block.content);
 
   return (
-    <main className="px-4 md:px-16 lg:px-32 pt-36 md:pt-40 pb-20">
+    <main id="main-content" className="px-4 md:px-16 lg:px-32 pt-36 md:pt-40 pb-20">
       <article className="max-w-5xl mx-auto space-y-12 md:space-y-14">
         <header className="relative border border-[var(--menu-border)] bg-[var(--weather-card-bg)] p-6 md:p-8 shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
           <span className="absolute -top-3 left-5 border border-[var(--menu-border)] bg-[var(--background)] px-2 py-0.5 text-[10px] font-space-mono font-bold uppercase tracking-[0.15em] text-primary">

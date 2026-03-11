@@ -26,7 +26,7 @@ export default function Home() {
   }, [refreshWeather]);
 
   return (
-    <div className="font-roboto pt-54">
+    <main id="main-content" className="font-roboto pt-54">
       <Hero />
       <About />
       <ProjectsSection />
@@ -49,6 +49,6 @@ export default function Home() {
       )}
 
       <Footer />
-    </div>
+    </main>
   );
 }

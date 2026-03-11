@@ -72,6 +72,12 @@ export default function RootLayout({
       <body
         className={`${roboto.variable} ${sacramento.variable} ${spaceMono.variable} ${Nexa.variable} bg-[var(--background)] text-[var(--foreground)] antialiased`}
       >
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[90] focus:bg-[var(--background)] focus:text-[var(--foreground)] focus:border focus:border-[var(--menu-border)] focus:px-4 focus:py-2"
+        >
+          Skip to main content
+        </a>
         <Analytics mode={analyticsMode} debug={process.env.NODE_ENV === "development"} />
         <SpeedInsights />
         <Header />

@@ -25,6 +25,14 @@ export default function Contact() {
     const [focusedField, setFocusedField] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+        const statusMessage =
+                submitStatus === "success"
+                        ? "Transmission successful. Message received and logged."
+                        : submitStatus === "error"
+                            ? "Transmission failed. Please check your connection and try again."
+                            : isSubmitting
+                                ? "Transmitting your message."
+                                : "";
 
     useEffect(() => {
         setIsMounted(true);
@@ -190,7 +198,10 @@ export default function Contact() {
                             </div>
 
                             {/* IDE Content */}
-                            <form onSubmit={handleSubmit} className="relative">
+                            <form onSubmit={handleSubmit} className="relative" aria-busy={isSubmitting} aria-describedby="contact-form-status">
+                                <p id="contact-form-status" className="sr-only" aria-live="polite">
+                                    {statusMessage}
+                                </p>
                                 <div className="flex">
                                     {/* Line Numbers */}
                                     <div
@@ -227,6 +238,7 @@ export default function Contact() {
                                                     "
                                                 </span>
                                                 <input
+                                                    id="contact-name"
                                                     type="text"
                                                     name="name"
                                                     value={formData.name}
@@ -235,6 +247,8 @@ export default function Contact() {
                                                     onBlur={() => setFocusedField(null)}
                                                     placeholder="Agent_Name"
                                                     required
+                                                    autoComplete="name"
+                                                    aria-label="Name"
                                                     className={`flex-1 min-w-0 bg-transparent outline-none placeholder:opacity-60 text-xs sm:text-sm md:text-base ${
                                                         theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"
                                                     }`}
@@ -259,6 +273,7 @@ export default function Contact() {
                                                     "
                                                 </span>
                                                 <input
+                                                    id="contact-email"
                                                     type="email"
                                                     name="email"
                                                     value={formData.email}
@@ -267,6 +282,8 @@ export default function Contact() {
                                                     onBlur={() => setFocusedField(null)}
                                                     placeholder="secure@channel.net"
                                                     required
+                                                    autoComplete="email"
+                                                    aria-label="Email"
                                                     className={`flex-1 min-w-0 bg-transparent outline-none placeholder:opacity-60 text-xs sm:text-sm md:text-base ${
                                                         theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"
                                                     }`}
@@ -291,6 +308,7 @@ export default function Contact() {
                                                     "
                                                 </span>
                                                 <input
+                                                    id="contact-subject"
                                                     type="text"
                                                     name="subject"
                                                     value={formData.subject}
@@ -299,6 +317,8 @@ export default function Contact() {
                                                     onBlur={() => setFocusedField(null)}
                                                     placeholder="PRIORITY_LEVEL"
                                                     required
+                                                    autoComplete="off"
+                                                    aria-label="Subject"
                                                     className={`flex-1 min-w-0 bg-transparent outline-none placeholder:opacity-60 text-xs sm:text-sm md:text-base ${
                                                         theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"
                                                     }`}
@@ -324,6 +344,7 @@ export default function Contact() {
                                                         "
                                                     </span>
                                                     <textarea
+                                                        id="contact-message"
                                                         name="message"
                                                         value={formData.message}
                                                         onChange={handleChange}
@@ -332,6 +353,7 @@ export default function Contact() {
                                                         placeholder="Transmit classified intel..."
                                                         required
                                                         rows={5}
+                                                        aria-label="Message"
                                                         className={`flex-1 min-w-0 bg-transparent outline-none resize-none placeholder:opacity-60 text-xs sm:text-sm md:text-base leading-relaxed ${
                                                             theme === "night" ? "text-[#ce9178]" : "text-[#1b5e20]"
                                                         }`}
@@ -409,6 +431,8 @@ export default function Contact() {
                                         ? "bg-[#27c93f]/15 border-[#27c93f] text-[#27c93f]"
                                         : "bg-[#27c93f]/10 border-[#27c93f] text-[#27c93f]"
                                 }`}
+                                role="status"
+                                aria-live="polite"
                                 style={{
                                     transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4 + scrollY * -0.06}px, 0)` : 'none',
                                     transition: 'transform 0.2s ease-out',
@@ -428,6 +452,8 @@ export default function Contact() {
                                         ? "bg-[#ff5f56]/15 border-[#ff5f56] text-[#ff5f56]"
                                         : "bg-[#ff5f56]/10 border-[#ff5f56] text-[#ff5f56]"
                                 }`}
+                                role="alert"
+                                aria-live="assertive"
                                 style={{
                                     transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4 + scrollY * -0.06}px, 0)` : 'none',
                                     transition: 'transform 0.2s ease-out',

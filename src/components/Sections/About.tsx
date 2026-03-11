@@ -254,10 +254,14 @@ export default function About() {
                             transition: 'transform 0.2s ease-out',
                         }}
                     >
-                        <div className="relative z-10 flex flex-wrap items-end gap-1.5 px-3 mb-[-1px]">
+                        <div className="relative z-10 flex flex-wrap items-end gap-1.5 px-3 mb-[-1px]" role="tablist" aria-label="Subject profile sections">
                             <button
                                 type="button"
                                 onClick={() => setActiveTab('field')}
+                                role="tab"
+                                id="tab-field"
+                                aria-selected={activeTab === 'field'}
+                                aria-controls="panel-field"
                                 className={`rounded-t border border-b-0 px-3 py-1.5 text-[10px] md:text-[11px] uppercase tracking-wider font-space-mono transition-colors ${
                                     activeTab === 'field' ? 'bg-background text-foreground border-foreground/25 z-10' : 'bg-foreground/10 text-foreground/60 border-foreground/15'
                                 }`}
@@ -267,6 +271,10 @@ export default function About() {
                             <button
                                 type="button"
                                 onClick={() => setActiveTab('capabilities')}
+                                role="tab"
+                                id="tab-capabilities"
+                                aria-selected={activeTab === 'capabilities'}
+                                aria-controls="panel-capabilities"
                                 className={`rounded-t border border-b-0 px-3 py-1.5 text-[10px] md:text-[11px] uppercase tracking-wider font-space-mono transition-colors ${
                                     activeTab === 'capabilities' ? 'bg-background text-foreground border-foreground/25 z-10' : 'bg-foreground/10 text-foreground/60 border-foreground/15'
                                 }`}
@@ -276,6 +284,10 @@ export default function About() {
                             <button
                                 type="button"
                                 onClick={() => setActiveTab('operations')}
+                                role="tab"
+                                id="tab-operations"
+                                aria-selected={activeTab === 'operations'}
+                                aria-controls="panel-operations"
                                 className={`rounded-t border border-b-0 px-3 py-1.5 text-[10px] md:text-[11px] uppercase tracking-wider font-space-mono transition-colors ${
                                     activeTab === 'operations' ? 'bg-background text-foreground border-foreground/25 z-10' : 'bg-foreground/10 text-foreground/60 border-foreground/15'
                                 }`}
@@ -285,6 +297,10 @@ export default function About() {
                             <button
                                 type="button"
                                 onClick={() => setActiveTab('projects')}
+                                role="tab"
+                                id="tab-projects"
+                                aria-selected={activeTab === 'projects'}
+                                aria-controls="panel-projects"
                                 className={`rounded-t border border-b-0 px-3 py-1.5 text-[10px] md:text-[11px] uppercase tracking-wider font-space-mono transition-colors ${
                                     activeTab === 'projects' ? 'bg-background text-foreground border-foreground/25 z-10' : 'bg-foreground/10 text-foreground/60 border-foreground/15'
                                 }`}
@@ -294,6 +310,10 @@ export default function About() {
                             <button
                                 type="button"
                                 onClick={() => setActiveTab('credentials')}
+                                role="tab"
+                                id="tab-credentials"
+                                aria-selected={activeTab === 'credentials'}
+                                aria-controls="panel-credentials"
                                 className={`rounded-t border border-b-0 px-3 py-1.5 text-[10px] md:text-[11px] uppercase tracking-wider font-space-mono transition-colors ${
                                     activeTab === 'credentials' ? 'bg-background text-foreground border-foreground/25 z-10' : 'bg-foreground/10 text-foreground/60 border-foreground/15'
                                 }`}
@@ -303,7 +323,7 @@ export default function About() {
                         </div>
 
                         <div className="rounded-sm border border-foreground/25 bg-background p-5 md:p-6 shadow-xl">{activeTab === 'field' && (
-                                <div className="space-y-4">
+                            <div className="space-y-4" role="tabpanel" id="panel-field" aria-labelledby="tab-field">
                                     <div className="border-b border-foreground/15 pb-3">
                                         <h3 className="font-space-mono text-xs md:text-sm uppercase tracking-wider text-primary">Subject Profile — Field Assessment</h3>
                                         <p className="font-space-mono text-[10px] text-foreground/60 mt-1">Compiled by: Internal Intelligence Unit | Updated: 2026</p>
@@ -325,7 +345,7 @@ export default function About() {
                             )}
 
                             {activeTab === 'capabilities' && (
-                                <div className="space-y-5">
+                                <div className="space-y-5" role="tabpanel" id="panel-capabilities" aria-labelledby="tab-capabilities">
                                     <div className="border-b border-foreground/15 pb-3">
                                         <h3 className="font-space-mono text-xs md:text-sm uppercase tracking-wider text-primary">Capabilities Log</h3>
                                         <p className="font-space-mono text-[10px] text-foreground/60 mt-1">Formatted as evidence intake form — three confirmed categories</p>
@@ -372,7 +392,7 @@ export default function About() {
                             )}
 
                             {activeTab === 'operations' && (
-                                <div className="space-y-5">
+                                <div className="space-y-5" role="tabpanel" id="panel-operations" aria-labelledby="tab-operations">
                                     <div className="border-b border-foreground/15 pb-3">
                                         <h3 className="font-space-mono text-xs md:text-sm uppercase tracking-wider text-primary">Operation History</h3>
                                         <p className="font-space-mono text-[10px] text-foreground/60 mt-1">Each role is a confirmed mission entry</p>
@@ -435,7 +455,7 @@ export default function About() {
                             )}
 
                             {activeTab === 'projects' && (
-                                <div className="space-y-4">
+                                <div className="space-y-4" role="tabpanel" id="panel-projects" aria-labelledby="tab-projects">
                                     <div className="border-b border-foreground/15 pb-3">
                                         <h3 className="font-space-mono text-xs md:text-sm uppercase tracking-wider text-primary">Personal Project Dossier</h3>
                                     </div>
@@ -520,7 +540,7 @@ export default function About() {
                             )}
 
                             {activeTab === 'credentials' && (
-                                <div className="space-y-5">
+                                <div className="space-y-5" role="tabpanel" id="panel-credentials" aria-labelledby="tab-credentials">
                                     <div className="border-b border-foreground/15 pb-3">
                                         <h3 className="font-space-mono text-xs md:text-sm uppercase tracking-wider text-primary">Credentials File</h3>
                                     </div>
