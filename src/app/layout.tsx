@@ -5,6 +5,8 @@ import localFont from 'next/font/local'
 import Header from "@/components/Header";
 import { WeatherProvider } from "@/context/WeatherContext";
 
+import { Analytics } from "@vercel/analytics/next"
+
 // Roboto (body, UI, readable)
 const roboto = Roboto({
   subsets: ["latin"],
@@ -61,11 +63,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const analyticsMode =
+    process.env.NODE_ENV === "development" ? "development" : "auto";
+
   return (
     <html lang="en">
       <body
         className={`${roboto.variable} ${sacramento.variable} ${spaceMono.variable} ${Nexa.variable} bg-[var(--background)] text-[var(--foreground)] antialiased`}
       >
+        <Analytics mode={analyticsMode} debug={process.env.NODE_ENV === "development"} />
         <Header />
         <WeatherProvider>
           {children}
