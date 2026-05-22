@@ -202,7 +202,7 @@ export default function ProjectsSection() {
                         <p className="text-xs text-primary uppercase tracking-[0.2em] font-medium font-space-mono">
                             Evidence Files — Active Case Studies
                         </p>
-                        <h2 className="text-3xl md:text-5xl font-extrabold font-nexa uppercase">
+                        <h2 className="text-3xl md:text-5xl font-extrabold font-nippo uppercase">
                             Open Investigations
                         </h2>
                         <p className="font-space-mono text-sm text-[var(--foreground)]/60 max-w-2xl">

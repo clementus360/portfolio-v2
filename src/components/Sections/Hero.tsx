@@ -320,7 +320,7 @@ export default function Hero() {
                         <div className="flex flex-col">
                             <h2
                                 key={`greeting-${currentLangIndex}`}
-                                className={`whitespace-nowrap font-space-mono font-bold text-sm md:text-xl text-primary ${animationPhase === 'glitch-out' ? 'language-glitch-out' :
+                                className={`whitespace-nowrap font-space-mono font-bold text-sm md:text-sm text-primary ${animationPhase === 'glitch-out' ? 'language-glitch-out' :
                                     animationPhase === 'glitch-in' ? 'language-glitch-in' : ''
                                     }`}
                                 style={{
@@ -330,7 +330,7 @@ export default function Hero() {
                                 {languages[currentLangIndex].greeting}
                             </h2>
                             <h1
-                                className="text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-extrabold font-nexa transition-transform duration-200 ease-out leading-"
+                                className="uppercase text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-extrabold font-nippo transition-transform duration-200 ease-out leading-"
                                 style={{
                                     transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4}px, 0)` : 'none',
                                 }}

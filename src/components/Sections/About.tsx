@@ -170,7 +170,7 @@ export default function About() {
                         <p className="typewriter-line" style={{ animationDelay: '1600ms' }}>&gt; CLEARANCE LEVEL: GRANTED ✓</p>
                     </div>
                     <h2 
-                        className={`text-3xl md:text-5xl font-extrabold font-nexa uppercase tracking-[0.04em] mt-4 transition-all duration-700 ${typewriterVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} 
+                        className={`text-3xl md:text-5xl font-extrabold font-nippo uppercase tracking-[0.04em] mt-4 transition-all duration-700 ${typewriterVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} 
                         style={{ 
                             transitionDelay: '2200ms',
                             transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 3}px, ${cursorOffset.y * 3 + scrollY * -0.04}px, 0)` : 'none',

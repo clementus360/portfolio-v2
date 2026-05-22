@@ -47,7 +47,7 @@ html.night {
   --font-roboto: var(--font-roboto);
   --font-sacramento: var(--font-sacramento);
   --font-space-mono: var(--font-space-mono);
-  --font-nexa: var(--font-nexa);
+  --font-nippo: var(--font-nippo);
 }
 
 @media (prefers-color-scheme: dark) {

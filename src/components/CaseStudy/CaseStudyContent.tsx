@@ -47,7 +47,7 @@ export default function CaseStudyContent({ caseStudy }: CaseStudyContentProps) {
             <p className="font-space-mono text-xs uppercase tracking-[0.2em] text-primary font-medium">
               {caseStudy.year} {caseStudy.client ? `• ${caseStudy.client}` : ""}
             </p>
-            <h1 className="text-4xl md:text-6xl font-extrabold font-nexa leading-[1.02] uppercase">
+            <h1 className="text-4xl md:text-6xl font-extrabold font-nippo leading-[1.02] uppercase">
               {caseStudy.title}
             </h1>
             <p className="font-space-mono text-sm md:text-base text-[var(--foreground)]/80 uppercase tracking-[0.06em]">
@@ -94,7 +94,7 @@ export default function CaseStudyContent({ caseStudy }: CaseStudyContentProps) {
 
         {rationaleParagraphs.length > 0 && (
           <section className="border border-[var(--menu-border)] bg-[var(--weather-card-bg)] p-6 md:p-8 space-y-5">
-            <h3 className="font-nexa text-2xl md:text-3xl font-bold text-primary uppercase">
+            <h3 className="font-nippo text-2xl md:text-3xl font-bold text-primary uppercase">
               Mission Brief
             </h3>
             <div className="space-y-4 max-w-3xl">
@@ -112,7 +112,7 @@ export default function CaseStudyContent({ caseStudy }: CaseStudyContentProps) {
 
         {textBlocks.length > 0 && (
           <section className="border border-[var(--menu-border)] bg-[var(--weather-card-bg)] p-6 md:p-8 space-y-6">
-            <h3 className="font-nexa text-2xl md:text-3xl font-bold text-primary uppercase">
+            <h3 className="font-nippo text-2xl md:text-3xl font-bold text-primary uppercase">
               Case Sections
             </h3>
 
@@ -140,7 +140,7 @@ export default function CaseStudyContent({ caseStudy }: CaseStudyContentProps) {
 
         {paletteBlocks.length > 0 && (
           <section className="border border-[var(--menu-border)] bg-[var(--weather-card-bg)] p-6 md:p-8 space-y-6">
-            <h3 className="font-nexa text-2xl md:text-3xl font-bold text-primary uppercase">
+            <h3 className="font-nippo text-2xl md:text-3xl font-bold text-primary uppercase">
               Visual Identity
             </h3>
 
@@ -192,7 +192,7 @@ export default function CaseStudyContent({ caseStudy }: CaseStudyContentProps) {
         )}
 
         <section className="border border-[var(--menu-border)] bg-[var(--weather-card-bg)] p-6 md:p-8 space-y-5">
-          <h3 className="font-nexa text-2xl md:text-3xl font-bold text-primary uppercase">
+          <h3 className="font-nippo text-2xl md:text-3xl font-bold text-primary uppercase">
             Evidence
           </h3>
 

@@ -151,7 +151,7 @@ export default function Contact() {
                         <p className="text-xs text-primary uppercase tracking-[0.2em] font-medium font-space-mono">
                             Secure Channel — Encrypted Transmission
                         </p>
-                        <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold font-nexa uppercase tracking-[0.04em]">
+                        <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold font-nippo uppercase tracking-[0.04em]">
                             Establish Contact
                         </h2>
                         <p className="font-space-mono text-xs sm:text-sm text-[var(--foreground)]/60 max-w-2xl">

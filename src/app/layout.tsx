@@ -28,11 +28,15 @@ const spaceMono = Space_Mono({
   variable: "--font-space-mono",
 });
 
-const Nexa = localFont({
+const nippo = localFont({
   src: [
-    { path: '../../fonts/Nexa Rust Sans W00 Black 03.otf', weight: '400' },
+    { path: '../../fonts/Nippo_Complete/Fonts/OTF/Nippo-Extralight.otf', weight: '200' },
+    { path: '../../fonts/Nippo_Complete/Fonts/OTF/Nippo-Light.otf', weight: '300' },
+    { path: '../../fonts/Nippo_Complete/Fonts/OTF/Nippo-Regular.otf', weight: '400' },
+    { path: '../../fonts/Nippo_Complete/Fonts/OTF/Nippo-Medium.otf', weight: '500' },
+    { path: '../../fonts/Nippo_Complete/Fonts/OTF/Nippo-Bold.otf', weight: '700' },
   ],
-  variable: '--font-nexa',
+  variable: '--font-nippo',
   display: 'swap',
 })
 
@@ -81,7 +85,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.variable} ${sacramento.variable} ${spaceMono.variable} ${Nexa.variable} bg-[var(--background)] text-[var(--foreground)] antialiased`}
+        className={`${roboto.variable} ${sacramento.variable} ${spaceMono.variable} ${nippo.variable} bg-[var(--background)] text-[var(--foreground)] antialiased`}
       >
         <a
           href="#main-content"
