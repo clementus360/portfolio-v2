@@ -15,6 +15,7 @@ type WeatherCondition =
     | "thunderstorm";
 
 interface WeatherData {
+    windKph: number | undefined;
     location: string;
     temp_c: number;
     condition: WeatherCondition;
@@ -83,6 +84,7 @@ export function WeatherProvider({ children }: { children: React.ReactNode }) {
                 condition: mapWeatherCondition(data.current.condition.text, isDay),
                 isDay,
                 localTime: data.location.localtime,
+                windKph: data.current.wind_kph,
             };
 
             setWeather(mappedWeather);

@@ -4,8 +4,7 @@ import { useEffect } from "react";
 
 import { WeatherCard } from "@/components/Weather/WeatherCard";
 import { useWeather } from "@/context/WeatherContext";
-import WeatherBackground from "@/components/Weather/WeatherBackground";
-import Hero from "@/components/Sections/Hero";
+import Hero from "../components/Sections/Hero";
 import Footer from "@/components/Footer";
 import ProjectsSection from "@/components/Sections/ProjectsSection";
 import About from "@/components/Sections/About";
@@ -26,11 +25,13 @@ export default function Home() {
   }, [refreshWeather]);
 
   return (
-    <main id="main-content" className="font-roboto pt-54">
-      <Hero />
-      <About />
-      <ProjectsSection />
-      <Contact />
+    <main id="main-content" className="relative isolate font-roboto">
+      <div className="relative z-10">
+        <Hero />
+        <About />
+        <ProjectsSection />
+        <Contact />
+      </div>
 
       {weather && (
         <WeatherCard
@@ -41,14 +42,10 @@ export default function Home() {
           localTime={weather.localTime}
         />
       )}
-      {weather?.condition && (
-        <WeatherBackground
-          condition={weather.condition}
-          isDay={weather.isDay}
-        />
-      )}
 
-      <Footer />
+      <div className="relative z-10">
+        <Footer />
+      </div>
     </main>
   );
 }

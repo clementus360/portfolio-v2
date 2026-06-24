@@ -1,9 +1,9 @@
 .sun-background {
-    position: fixed;
+    position: absolute;
     inset: 0;
     overflow: hidden;
     pointer-events: none;
-    z-index: -1;
+    z-index: 0;
     background: hsl(42, 100%, 95%);
     /* Keep full bg white */
 }

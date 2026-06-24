@@ -29,14 +29,14 @@ html.day {
 }
 
 html.night {
-  --background: #0d0d0d;
-  --foreground: #ffffff;
-  --menu-bg: rgba(10, 10, 10, 0.85);
+  --background: #04060d;
+  --foreground: #f3f6fc;
+  --menu-bg: rgba(12, 16, 26, 0.85);
   --menu-divider: rgba(207, 15, 15, 0.2);
   --menu-border: rgba(207, 15, 15, 0.4);
-  --weather-card-bg: rgba(10, 10, 10, 0.8);
+  --weather-card-bg: rgba(12, 16, 26, 0.8);
   --weather-card-border: rgba(207, 15, 15, 0.6);
-  --polaroid-bg: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 50%, #2a2a2a 100%);
+  --polaroid-bg: linear-gradient(135deg, #232a3a 0%, #1a2030 50%, #232a3a 100%);
   --tape-bg: rgba(60, 60, 50, 0.5);
 }
 
@@ -88,6 +88,6 @@ body::before {
 }
 
 html.night body::before {
-  opacity: 0.9;
-  mix-blend-mode: overlay;
+  opacity: 0.4;
+  mix-blend-mode: soft-light;
 }

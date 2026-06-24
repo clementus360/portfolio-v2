@@ -1,0 +1,61 @@
+.rainfall-background {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/*
+ * The whole sheet of rain is tilted by the wind angle. Drops fall straight
+ * "down" inside this rotated, oversized frame, so the streaks stay perfectly
+ * aligned with their motion and the diagonal is created for free. The frame is
+ * scaled past the viewport so the rotation never exposes empty corners.
+ */
+.rainfall-tilt {
+    position: absolute;
+    top: -30%;
+    left: -30%;
+    width: 160%;
+    height: 160%;
+    transform: rotate(var(--rain-angle, 0deg));
+    transform-origin: center;
+    will-change: transform;
+}
+
+.raindrop {
+    position: absolute;
+    top: 0;
+    width: var(--thickness, 1px);
+    height: var(--len, 10vh);
+    border-radius: 9999px;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        var(--rain-color, rgba(255, 255, 255, 0.45)) 35%,
+        var(--rain-color, rgba(255, 255, 255, 0.45)) 70%,
+        transparent 100%
+    );
+    opacity: var(--drop-opacity, 0.3);
+    animation-name: rainfall-drop;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform;
+}
+
+@keyframes rainfall-drop {
+    from {
+        transform: translate3d(0, -20vh, 0);
+    }
+
+    to {
+        transform: translate3d(0, 150vh, 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .raindrop {
+        animation: none !important;
+        opacity: 0 !important;
+    }
+}
