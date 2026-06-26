@@ -211,7 +211,15 @@ const marqueeStyle = `
         inset: 0;
         transform-style: preserve-3d;
         will-change: transform;
-        transform: translate3d(0, calc(var(--hero-scroll, 0) * -0.03px), 0);
+    }
+    /* Deepest layer: the weather sky. It lags the most, so it appears to sit
+       far behind everything and barely drifts as the page scrolls. */
+    .hero-window__sky {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        will-change: transform;
+        transform: translate3d(0, calc(var(--hero-scroll, 0) * 0.16px), 0);
     }
     .hero-window__layer {
         position: absolute;
@@ -225,7 +233,7 @@ const marqueeStyle = `
             radial-gradient(circle at 78% 22%, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.08) 16%, rgba(255, 255, 255, 0) 40%),
             linear-gradient(180deg, rgba(248, 248, 248, 0.5) 0%, rgba(225, 225, 225, 0.12) 100%);
         opacity: 0.52;
-        transform: translate3d(0, calc(var(--hero-scroll, 0) * 0.04px), 0);
+        transform: translate3d(0, calc(var(--hero-scroll, 0) * 0.11px), 0);
     }
     .hero-window__layer--mid {
         background:
@@ -233,14 +241,14 @@ const marqueeStyle = `
             linear-gradient(180deg, rgba(0, 0, 0, 0.04) 0%, rgba(0, 0, 0, 0.02) 100%);
         mix-blend-mode: multiply;
         opacity: 0.7;
-        transform: translate3d(0, calc(var(--hero-scroll, 0) * 0.09px), 0);
+        transform: translate3d(0, calc(var(--hero-scroll, 0) * 0.06px), 0);
     }
     .hero-window__layer--near {
         background:
             radial-gradient(circle at 50% 65%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 22%, rgba(255, 255, 255, 0) 48%),
             linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.14) 100%);
         opacity: 0.82;
-        transform: translate3d(0, calc(var(--hero-scroll, 0) * 0.16px), 0);
+        transform: translate3d(0, calc(var(--hero-scroll, 0) * 0.02px), 0);
     }
     .hero-window__content {
         position: relative;
@@ -255,7 +263,6 @@ const marqueeStyle = `
         max-width: 1440px;
         margin-inline: auto;
         padding-inline: 1rem;
-        transform: translate3d(0, calc(var(--hero-scroll, 0) * -0.02px), 0);
     }
     @media (min-width: 768px) {
         .hero-window__container {
@@ -267,18 +274,24 @@ const marqueeStyle = `
             padding-inline: 8rem;
         }
     }
+    /* The copy sits just in front of the background glows: the headline leads
+       the subject so the name reads as the nearer of the two. Scroll parallax
+       applies on every screen; cursor drift is layered on at md+ (and scales
+       with depth — the headline drifts more than the subject). */
     .hero-window__name {
         transition: transform 200ms ease-out;
+        transform: translate3d(0, calc(var(--hero-scroll, 0) * -0.10px), 0);
     }
     .hero-window__subject {
         transition: transform 300ms ease-out;
+        transform: translate3d(0, calc(var(--hero-scroll, 0) * -0.05px), 0);
     }
     @media (min-width: 768px) {
         .hero-window__name {
-            transform: translate3d(calc(var(--cursor-x, 0) * 4px), calc(var(--cursor-y, 0) * 4px), 0);
+            transform: translate3d(calc(var(--cursor-x, 0) * 6px), calc(var(--hero-scroll, 0) * -0.10px + var(--cursor-y, 0) * 6px), 0);
         }
         .hero-window__subject {
-            transform: translate3d(calc(var(--cursor-x, 0) * 2px), calc(var(--cursor-y, 0) * 2px), 0);
+            transform: translate3d(calc(var(--cursor-x, 0) * 3px), calc(var(--hero-scroll, 0) * -0.05px + var(--cursor-y, 0) * 3px), 0);
         }
     }
     /* The far/mid/near layers are white depth-glows for the future scene; on the
@@ -305,14 +318,26 @@ const marqueeStyle = `
             margin-bottom: 2rem;
         }
     }
+    /* The ribbons are the foreground plane: they race up the fastest as you
+       scroll and drift the most under the cursor, so they read as the closest
+       thing to the viewer — everything else recedes behind them. */
     .hero-ribbon--top {
-        transform: translate3d(0, calc(var(--hero-scroll, 0) * 0.05px), 0) rotate(2deg);
+        transform: translate3d(0, calc(var(--hero-scroll, 0) * -0.24px), 0) rotate(2deg);
     }
     .hero-ribbon--bottom {
-        transform: translate3d(0, calc(var(--hero-scroll, 0) * 0.08px), 0) rotate(-2deg);
+        transform: translate3d(0, calc(var(--hero-scroll, 0) * -0.18px), 0) rotate(-2deg);
+    }
+    @media (min-width: 768px) {
+        .hero-ribbon--top {
+            transform: translate3d(calc(var(--cursor-x, 0) * 10px), calc(var(--hero-scroll, 0) * -0.24px), 0) rotate(2deg);
+        }
+        .hero-ribbon--bottom {
+            transform: translate3d(calc(var(--cursor-x, 0) * 8px), calc(var(--hero-scroll, 0) * -0.18px), 0) rotate(-2deg);
+        }
     }
     @media (prefers-reduced-motion: reduce) {
         .hero-window__scene,
+        .hero-window__sky,
         .hero-window__layer,
         .hero-window__container,
         .hero-window__name,
@@ -475,11 +500,16 @@ export default function Hero() {
                     <div className="hero-window__opening">
                         <div className="hero-window__scene">
                             {weather?.condition && (
-                                <WeatherBackground
-                                    condition={weather.condition}
-                                    isDay={weather.isDay}
-                                    windKph={weather.windKph}
-                                />
+                                <div className="hero-window__sky">
+                                    <WeatherBackground
+                                        condition={weather.condition}
+                                        isDay={weather.isDay}
+                                        windKph={weather.windKph}
+                                        windDeg={weather.windDeg}
+                                        precipMm={weather.precipMm}
+                                        cloudPct={weather.cloudPct}
+                                    />
+                                </div>
                             )}
 
                             <div className="hero-window__layer hero-window__layer--far" />

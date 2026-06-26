@@ -1,95 +1,169 @@
 "use client";
 
+import {
+  cloudPctToDensity,
+  precipToIntensity,
+  type WeatherCondition,
+} from "@/utils/weatherCondition";
+import CloudBackground from "./CloudBackground/CloudBackground";
+import FogBackground from "./FogBackground/FogBackground";
 import HeatBackground from "./HeatBackground/HeatBackground";
+import LightningFlash from "./LightningFlash/LightningFlash";
+import NightBackground from "./NightBackground/NightBackground";
 import RainfallBackground from "./RainfallBackground/RainfallBackground";
 import SnowBackground from "./SnowBackground/SnowBackground";
 import SunBackground from "./SunBackground/SunBackground";
-import NightBackground from "./NightBackground/NightBackground";
-import CloudBackground from "./CloudBackground/CloudBackground";
-
-type WeatherCondition =
-    | "cloudyday"
-    | "cloudynight"
-    | "night"
-    | "rain"
-    | "snow"
-    | "sunny"
-    | "thunderstorm";
 
 type WeatherBackgroundProps = {
-    condition: WeatherCondition;
-    isDay?: boolean;
-    windKph?: number;
+  condition: WeatherCondition;
+  isDay?: boolean;
+  windKph?: number;
+  /** Wind bearing, degrees — leans the rain left/right. */
+  windDeg?: number;
+  /** Precipitation rate, mm/hr — drives rain & snow amount. */
+  precipMm?: number;
+  /** Cloud cover, 0–100% — drives cloud density. */
+  cloudPct?: number;
 };
 
 export default function WeatherBackground({
-    condition,
-    isDay = true,
-    windKph = 0,
+  condition,
+  isDay = true,
+  windKph = 0,
+  windDeg = 0,
+  precipMm = 0,
+  cloudPct = 0,
 }: WeatherBackgroundProps) {
-    // A starry night sky sits behind every nighttime condition. The more the
-    // sky is covered (cloud → rain → storm), the fewer stars peek through — but
-    // it's never empty, so some stars always show at night.
-    const nightSky = (starDensity: number) => (
-        <NightBackground enabled opacity={1} starDensity={starDensity} />
-    );
+  // A starry night sky sits behind every nighttime condition. The more the
+  // sky is covered (cloud → rain → storm), the fewer stars peek through — but
+  // it's never empty, so some stars always show at night.
+  const nightSky = (starDensity: number) => (
+    <NightBackground enabled opacity={1} starDensity={starDensity} />
+  );
 
-    switch (condition) {
-        case "sunny":
-            return <div className="absolute inset-0 z-0 pointer-events-none">
-                <SunBackground enabled opacity={0.8} />
-                <HeatBackground enabled opacity={0.6} />
-                <CloudBackground enabled isDay windKph={windKph} density="minimal" />
-            </div>;
+  switch (condition) {
+    case "sunny":
+      return (
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <SunBackground enabled opacity={0.8} />
+          <HeatBackground enabled opacity={0.6} />
+          {/* Even on a clear day there can be a few clouds — let the real
+                    cover decide, but never more than light. */}
+          <CloudBackground
+            enabled
+            isDay
+            windKph={windKph}
+            density={cloudPctToDensity(Math.min(cloudPct, 30))}
+          />
+        </div>
+      );
 
-        case "rain":
-        case "thunderstorm":
-            return (
-                <div className="absolute inset-0 z-0 pointer-events-none">
-                    {!isDay && nightSky(condition === "thunderstorm" ? 0.25 : 0.35)}
-                    <CloudBackground enabled isDay={isDay} windKph={windKph} density="heavy" />
-                    <RainfallBackground
-                        enabled
-                        intensity={condition === "rain" ? 2 : 3}
-                        windKph={windKph}
-                        color={
-                            isDay
-                                ? "rgba(40,50,70,0.45)" // darker streaks for day
-                                : "rgba(200,215,245,0.5)" // cool bright streaks for night
-                        }
-                    />
-                </div>
-            );
+    case "rain":
+    case "thunderstorm": {
+      const isStorm = condition === "thunderstorm";
+      // Rain amount from the precipitation rate; storms get a one-level
+      // bump and a floor so they always read as a downpour.
+      const intensity =
+        precipToIntensity(precipMm, isStorm ? 3 : 1) + (isStorm ? 1 : 0);
+      // Rain implies a covered sky — floor the cloud cover accordingly.
+      const density = cloudPctToDensity(cloudPct, isStorm ? "heavy" : "full");
 
-        case "snow":
-            return (
-                <div className="absolute inset-0 z-0 pointer-events-none">
-                    {!isDay && nightSky(0.45)}
-                    <CloudBackground enabled isDay={isDay} windKph={windKph} density="full" />
-                    <SnowBackground intensity={2} enabled isDay={isDay} />
-                </div>
-            );
-
-        case "cloudyday":
-            return <CloudBackground enabled isDay windKph={windKph} density="full" />;
-
-        case "cloudynight":
-            return (
-                <div className="absolute inset-0 z-0 pointer-events-none">
-                    {nightSky(0.5)}
-                    <CloudBackground enabled isDay={false} windKph={windKph} density="full" />
-                </div>
-            );
-
-        case "night":
-            return (
-                <div className="absolute inset-0 z-0 pointer-events-none">
-                    {nightSky(1)}
-                    <CloudBackground enabled isDay={false} windKph={windKph} density="minimal" />
-                </div>
-            );
-
-        default:
-            return null;
+      return (
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          {!isDay && nightSky(isStorm ? 0.25 : 0.35)}
+          <CloudBackground
+            enabled
+            isDay={isDay}
+            windKph={windKph}
+            density={density}
+          />
+          <RainfallBackground
+            enabled
+            intensity={intensity}
+            windKph={windKph}
+            windDeg={windDeg}
+            color={
+              isDay
+                ? "rgba(40,50,70,0.45)" // darker streaks for day
+                : "rgba(200,215,245,0.5)" // cool bright streaks for night
+            }
+          />
+          {isStorm && <LightningFlash enabled />}
+        </div>
+      );
     }
+
+    case "snow":
+      return (
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          {!isDay && nightSky(0.45)}
+          <CloudBackground
+            enabled
+            isDay={isDay}
+            windKph={windKph}
+            density={cloudPctToDensity(cloudPct, "full")}
+          />
+          <SnowBackground
+            intensity={precipToIntensity(precipMm)}
+            enabled
+            isDay={isDay}
+          />
+        </div>
+      );
+
+    case "fog":
+      return (
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          {!isDay && nightSky(0.3)}
+          {/* Mist sits under a real sky — keep some cloud cover behind the haze
+              instead of a bare gradient. */}
+          <CloudBackground
+            enabled
+            isDay={isDay}
+            windKph={windKph}
+            density={cloudPctToDensity(cloudPct, "full")}
+          />
+          <FogBackground enabled isDay={isDay} windKph={windKph} />
+        </div>
+      );
+
+    case "cloudyday":
+      return (
+        <CloudBackground
+          enabled
+          isDay
+          windKph={windKph}
+          density={cloudPctToDensity(cloudPct, "light")}
+        />
+      );
+
+    case "cloudynight":
+      return (
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          {nightSky(0.5)}
+          <CloudBackground
+            enabled
+            isDay={false}
+            windKph={windKph}
+            density={cloudPctToDensity(cloudPct, "light")}
+          />
+        </div>
+      );
+
+    case "night":
+      return (
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          {nightSky(1)}
+          <CloudBackground
+            enabled
+            isDay={false}
+            windKph={windKph}
+            density={cloudPctToDensity(Math.min(cloudPct, 30))}
+          />
+        </div>
+      );
+
+    default:
+      return null;
+  }
 }

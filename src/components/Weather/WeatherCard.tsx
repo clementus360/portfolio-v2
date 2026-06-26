@@ -3,11 +3,12 @@
 
 import { WeatherIcon } from "@/components/Weather/WeatherIcon";
 import { useEffect, useRef, useState } from "react";
+import type { WeatherCondition } from "@/utils/weatherCondition";
 
 interface WeatherCardProps {
     location: string; // e.g. "Kigali"
     temperature: number; // e.g. 26
-    condition: "cloudyday" | "cloudynight" | "night" | "rain" | "snow" | "sunny" | "thunderstorm";
+    condition: WeatherCondition;
     localTime?: string; // e.g. "2026-03-02 14:30"
     className?: string; // optional styling
 }

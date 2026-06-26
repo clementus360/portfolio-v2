@@ -1,0 +1,80 @@
+.fog-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  isolation: isolate;
+}
+
+.fog-band {
+  position: absolute;
+  top: -20%;
+  left: -60%;
+  width: 220%;
+  height: 140%;
+  border-radius: 45%;
+  filter: blur(60px);
+  will-change: transform;
+  animation-name: fog-drift;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* Day fog: bright, cool grey-white. */
+.fog-background--day .fog-band {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(232, 236, 240, calc(var(--fog-opacity, 0.6) * 0.85)) 0%,
+    rgba(214, 221, 228, calc(var(--fog-opacity, 0.6) * 0.5)) 45%,
+    rgba(200, 208, 218, 0) 75%
+  );
+}
+
+/* Night fog: muted, cold blue-grey. */
+.fog-background--night .fog-band {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(120, 132, 156, calc(var(--fog-opacity, 0.6) * 0.7)) 0%,
+    rgba(70, 82, 108, calc(var(--fog-opacity, 0.6) * 0.45)) 45%,
+    rgba(40, 50, 72, 0) 75%
+  );
+}
+
+.fog-band--1 {
+  top: -25%;
+  animation-duration: calc(46s / var(--fog-speedup, 1));
+  opacity: 0.9;
+}
+
+.fog-band--2 {
+  top: 10%;
+  animation-duration: calc(62s / var(--fog-speedup, 1));
+  animation-delay: -14s;
+  opacity: 1;
+}
+
+.fog-band--3 {
+  top: 38%;
+  animation-duration: calc(78s / var(--fog-speedup, 1));
+  animation-delay: -30s;
+  opacity: 0.85;
+}
+
+@keyframes fog-drift {
+  from {
+    transform: translate3d(-8%, 0, 0) scale(1.05);
+  }
+
+  to {
+    transform: translate3d(8%, 2%, 0) scale(1.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fog-band {
+    animation: none !important;
+    transform: none !important;
+  }
+}

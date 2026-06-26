@@ -1,0 +1,68 @@
+.lightning-flash {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.lightning-flash__sheet {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: radial-gradient(
+    ellipse at 50% 20%,
+    rgba(226, 234, 255, 0.85) 0%,
+    rgba(196, 210, 245, 0.35) 30%,
+    rgba(160, 180, 230, 0) 65%
+  );
+  mix-blend-mode: screen;
+  will-change: opacity;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+}
+
+/* Two strikes per cycle (a quick double-blink), then a long dark gap. */
+.lightning-flash__sheet--a {
+  animation-name: lightning-strike;
+  animation-duration: 9s;
+}
+
+.lightning-flash__sheet--b {
+  animation-name: lightning-strike;
+  animation-duration: 13s;
+  animation-delay: -5s;
+  /* Offset origin so the second source doesn't sit exactly over the first. */
+  background: radial-gradient(
+    ellipse at 30% 15%,
+    rgba(226, 234, 255, 0.7) 0%,
+    rgba(196, 210, 245, 0.28) 28%,
+    rgba(160, 180, 230, 0) 60%
+  );
+}
+
+@keyframes lightning-strike {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  1% {
+    opacity: 0.9;
+  }
+  3% {
+    opacity: 0.1;
+  }
+  5% {
+    opacity: 0.8;
+  }
+  8% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightning-flash__sheet {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}
