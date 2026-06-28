@@ -5,7 +5,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { caseStudies } from "@/data/caseStudies";
 import { useWeather } from "@/context/WeatherContext";
-import { useEffect, useState, useRef } from "react";
+import { useParallax } from "@/hooks/useParallax";
+import { useRef } from "react";
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -133,58 +134,16 @@ function CaseStudyCard({ project, index, theme }: CaseStudyCardProps) {
 export default function ProjectsSection() {
     const { theme } = useWeather();
     const sectionRef = useRef<HTMLDivElement>(null);
-    const [cursorOffset, setCursorOffset] = useState({ x: 0, y: 0 });
-    const [scrollY, setScrollY] = useState(0);
-    const [isMounted, setIsMounted] = useState(false);
 
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
-    useEffect(() => {
-        const handleMouseMove = (event: MouseEvent) => {
-            const normalizedX = (event.clientX / window.innerWidth - 0.5) * 2;
-            const normalizedY = (event.clientY / window.innerHeight - 0.5) * 2;
-
-            setCursorOffset({
-                x: normalizedX,
-                y: normalizedY,
-            });
-        };
-
-        const handleMouseLeave = () => {
-            setCursorOffset({ x: 0, y: 0 });
-        };
-
-        window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('mouseleave', handleMouseLeave);
-
-        return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('mouseleave', handleMouseLeave);
-        };
-    }, []);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            if (sectionRef.current) {
-                const rect = sectionRef.current.getBoundingClientRect();
-                const scrolled = -rect.top;
-                setScrollY(scrolled);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        handleScroll(); // Initial call
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    // Scroll + cursor parallax via CSS vars (no per-frame re-render).
+    useParallax(sectionRef);
 
     return (
         <section id="works" className="py-20 md:py-28 md:pb-20" ref={sectionRef}>
             <div 
                 className="max-w-[1440px] mx-auto px-4 md:px-16 lg:px-32"
                 style={{
-                    transform: `translateY(${scrollY * -0.05}px)`,
+                    transform: 'translate3d(0, calc(var(--sx, 0) * -0.05px), 0)',
                 }}
             >
                 <div className="space-y-12">
@@ -195,7 +154,7 @@ export default function ProjectsSection() {
                         transition={{ duration: 0.5 }}
                         viewport={{ once: true }}
                         style={{
-                            transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 2}px, ${cursorOffset.y * 2 + scrollY * -0.03}px, 0)` : 'none',
+                            transform: 'translate3d(calc(var(--cx, 0) * 2px), calc(var(--sx, 0) * -0.03px + var(--cy, 0) * 2px), 0)',
                             transition: 'transform 0.2s ease-out',
                         }}
                     >
@@ -216,7 +175,7 @@ export default function ProjectsSection() {
                         whileInView="visible"
                         viewport={{ once: true, margin: "-100px" }}
                         style={{
-                            transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 3}px, ${cursorOffset.y * 3 + scrollY * -0.04}px, 0)` : 'none',
+                            transform: 'translate3d(calc(var(--cx, 0) * 3px), calc(var(--sx, 0) * -0.04px + var(--cy, 0) * 3px), 0)',
                             transition: 'transform 0.2s ease-out',
                         }}
                     >

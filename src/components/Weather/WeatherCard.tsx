@@ -39,6 +39,41 @@ export function WeatherCard({ location, temperature, condition, localTime, class
             return Math.max(min, Math.min(max, value));
         };
 
+        let isAnimating = false;
+
+        const animate = () => {
+            const current = currentRotationRef.current;
+            const target = targetRotationRef.current;
+
+            const dx = target.x - current.x;
+            const dy = target.y - current.y;
+
+            // Settle and stop the loop once movement is imperceptible, so the
+            // card stops re-rendering when the pointer is still instead of
+            // running setRotation at 60fps forever.
+            if (Math.abs(dx) < 0.05 && Math.abs(dy) < 0.05) {
+                currentRotationRef.current = { ...target };
+                setRotation({ ...target });
+                isAnimating = false;
+                animationFrameId = 0;
+                return;
+            }
+
+            const nextX = current.x + dx * smoothness;
+            const nextY = current.y + dy * smoothness;
+
+            currentRotationRef.current = { x: nextX, y: nextY };
+            setRotation({ x: nextX, y: nextY });
+
+            animationFrameId = window.requestAnimationFrame(animate);
+        };
+
+        const startAnimating = () => {
+            if (isAnimating) return;
+            isAnimating = true;
+            animationFrameId = window.requestAnimationFrame(animate);
+        };
+
         const handleMouseMove = (event: MouseEvent) => {
             if (!cardRef.current) return;
 
@@ -56,28 +91,16 @@ export function WeatherCard({ location, temperature, condition, localTime, class
                 x: -normalizedY * maxTilt,
                 y: normalizedX * maxTilt,
             };
+            startAnimating();
         };
 
         const handleMouseLeaveWindow = () => {
             targetRotationRef.current = { x: 0, y: 0 };
+            startAnimating();
         };
 
-        const animate = () => {
-            const current = currentRotationRef.current;
-            const target = targetRotationRef.current;
-
-            const nextX = current.x + (target.x - current.x) * smoothness;
-            const nextY = current.y + (target.y - current.y) * smoothness;
-
-            currentRotationRef.current = { x: nextX, y: nextY };
-            setRotation({ x: nextX, y: nextY });
-
-            animationFrameId = window.requestAnimationFrame(animate);
-        };
-
-        window.addEventListener("mousemove", handleMouseMove);
+        window.addEventListener("mousemove", handleMouseMove, { passive: true });
         window.addEventListener("mouseleave", handleMouseLeaveWindow);
-        animationFrameId = window.requestAnimationFrame(animate);
 
         return () => {
             window.removeEventListener("mousemove", handleMouseMove);

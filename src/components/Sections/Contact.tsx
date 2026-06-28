@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { useWeather } from "@/context/WeatherContext";
+import { useParallax } from "@/hooks/useParallax";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 
@@ -13,9 +14,10 @@ if (process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) {
 export default function Contact() {
     const { theme } = useWeather();
     const sectionRef = useRef<HTMLDivElement>(null);
-    const [cursorOffset, setCursorOffset] = useState({ x: 0, y: 0 });
-    const [scrollY, setScrollY] = useState(0);
-    const [isMounted, setIsMounted] = useState(false);
+
+    // Scroll + cursor parallax via CSS vars (no per-frame re-render).
+    useParallax(sectionRef);
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -34,47 +36,6 @@ export default function Contact() {
                                 ? "Transmitting your message."
                                 : "";
 
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
-    useEffect(() => {
-        const handleMouseMove = (event: MouseEvent) => {
-            const normalizedX = (event.clientX / window.innerWidth - 0.5) * 2;
-            const normalizedY = (event.clientY / window.innerHeight - 0.5) * 2;
-
-            setCursorOffset({
-                x: normalizedX,
-                y: normalizedY,
-            });
-        };
-
-        const handleMouseLeave = () => {
-            setCursorOffset({ x: 0, y: 0 });
-        };
-
-        window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('mouseleave', handleMouseLeave);
-
-        return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('mouseleave', handleMouseLeave);
-        };
-    }, []);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            if (sectionRef.current) {
-                const rect = sectionRef.current.getBoundingClientRect();
-                const scrolled = -rect.top;
-                setScrollY(scrolled);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        handleScroll(); // Initial call
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -133,7 +94,7 @@ export default function Contact() {
             <div 
                 className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-16 lg:px-32"
                 style={{
-                    transform: `translateY(${scrollY * -0.05}px)`,
+                    transform: 'translate3d(0, calc(var(--sx, 0) * -0.05px), 0)',
                 }}
             >
                 <div className="space-y-12">
@@ -144,7 +105,7 @@ export default function Contact() {
                         transition={{ duration: 0.5 }}
                         viewport={{ once: true }}
                         style={{
-                            transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 2}px, ${cursorOffset.y * 2 + scrollY * -0.03}px, 0)` : 'none',
+                            transform: 'translate3d(calc(var(--cx, 0) * 2px), calc(var(--sx, 0) * -0.03px + var(--cy, 0) * 2px), 0)',
                             transition: 'transform 0.2s ease-out',
                         }}
                     >
@@ -166,7 +127,7 @@ export default function Contact() {
                         viewport={{ once: true }}
                         className="w-full"
                         style={{
-                            transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 3}px, ${cursorOffset.y * 3 + scrollY * -0.04}px, 0)` : 'none',
+                            transform: 'translate3d(calc(var(--cx, 0) * 3px), calc(var(--sx, 0) * -0.04px + var(--cy, 0) * 3px), 0)',
                             transition: 'transform 0.2s ease-out',
                         }}
                     >
@@ -434,7 +395,7 @@ export default function Contact() {
                                 role="status"
                                 aria-live="polite"
                                 style={{
-                                    transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4 + scrollY * -0.06}px, 0)` : 'none',
+                                    transform: 'translate3d(calc(var(--cx, 0) * 4px), calc(var(--sx, 0) * -0.06px + var(--cy, 0) * 4px), 0)',
                                     transition: 'transform 0.2s ease-out',
                                 }}
                             >
@@ -455,7 +416,7 @@ export default function Contact() {
                                 role="alert"
                                 aria-live="assertive"
                                 style={{
-                                    transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4 + scrollY * -0.06}px, 0)` : 'none',
+                                    transform: 'translate3d(calc(var(--cx, 0) * 4px), calc(var(--sx, 0) * -0.06px + var(--cy, 0) * 4px), 0)',
                                     transition: 'transform 0.2s ease-out',
                                 }}
                             >

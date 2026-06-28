@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useParallax } from '@/hooks/useParallax';
 
 type RedactedTextProps = {
     children: string;
@@ -82,13 +83,9 @@ export default function About() {
     const [typewriterVisible, setTypewriterVisible] = useState(false);
     const [activeTab, setActiveTab] = useState<'field' | 'capabilities' | 'operations' | 'projects' | 'credentials'>('field');
     const [stampsDropped, setStampsDropped] = useState(false);
-    const [cursorOffset, setCursorOffset] = useState({ x: 0, y: 0 });
-    const [scrollY, setScrollY] = useState(0);
-    const [isMounted, setIsMounted] = useState(false);
 
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
+    // Scroll + cursor parallax via CSS vars (no per-frame re-render).
+    useParallax(sectionRef);
 
     useEffect(() => {
         if (!sectionRef.current) return;
@@ -110,50 +107,12 @@ export default function About() {
         return () => observer.disconnect();
     }, []);
 
-    useEffect(() => {
-        const handleMouseMove = (event: MouseEvent) => {
-            const normalizedX = (event.clientX / window.innerWidth - 0.5) * 2;
-            const normalizedY = (event.clientY / window.innerHeight - 0.5) * 2;
-
-            setCursorOffset({
-                x: normalizedX,
-                y: normalizedY,
-            });
-        };
-
-        const handleMouseLeave = () => {
-            setCursorOffset({ x: 0, y: 0 });
-        };
-
-        window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('mouseleave', handleMouseLeave);
-
-        return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('mouseleave', handleMouseLeave);
-        };
-    }, []);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            if (sectionRef.current) {
-                const rect = sectionRef.current.getBoundingClientRect();
-                const scrolled = -rect.top;
-                setScrollY(scrolled);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        handleScroll(); // Initial call
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
     return (
         <section ref={sectionRef} id="about" className="w-full pt-20 md:pt-16">
-            <div 
+            <div
                 className="w-full max-w-[1440px] mx-auto px-4 md:px-16 lg:px-32"
                 style={{
-                    transform: `translateY(${scrollY * -0.05}px)`,
+                    transform: 'translate3d(0, calc(var(--sx, 0) * -0.05px), 0)',
                 }}
             >
                 {/* Typewriter Header */}
@@ -161,7 +120,7 @@ export default function About() {
                     <div 
                         className={`font-space-mono text-xs md:text-sm text-primary/80 transition-opacity duration-500 ${typewriterVisible ? 'opacity-100' : 'opacity-0'}`}
                         style={{
-                            transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 2}px, ${cursorOffset.y * 2 + scrollY * -0.03}px, 0)` : 'none',
+                            transform: 'translate3d(calc(var(--cx, 0) * 2px), calc(var(--sx, 0) * -0.03px + var(--cy, 0) * 2px), 0)',
                             transition: 'transform 0.2s ease-out',
                         }}
                     >
@@ -173,7 +132,7 @@ export default function About() {
                         className={`text-3xl md:text-5xl font-extrabold font-nippo uppercase tracking-[0.04em] mt-4 transition-all duration-700 ${typewriterVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} 
                         style={{ 
                             transitionDelay: '2200ms',
-                            transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 3}px, ${cursorOffset.y * 3 + scrollY * -0.04}px, 0)` : 'none',
+                            transform: 'translate3d(calc(var(--cx, 0) * 3px), calc(var(--sx, 0) * -0.04px + var(--cy, 0) * 3px), 0)',
                         }}
                     >
                         Subject Profile
@@ -187,7 +146,7 @@ export default function About() {
                         <div 
                             className="relative rotate-[-2deg] bg-[var(--weather-card-bg)] transition-transform duration-300 hover:rotate-0"
                             style={{
-                                transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 4}px, ${cursorOffset.y * 4 + scrollY * -0.08}px, 0) rotate(-2deg)` : 'rotate(-2deg)',
+                                transform: 'translate3d(calc(var(--cx, 0) * 4px), calc(var(--sx, 0) * -0.08px + var(--cy, 0) * 4px), 0) rotate(-2deg)',
                                 transition: 'transform 0.2s ease-out',
                             }}
                         >
@@ -250,7 +209,7 @@ export default function About() {
                     <div 
                         className="relative"
                         style={{
-                            transform: (isMounted && typeof window !== 'undefined' && window.innerWidth >= 768) ? `translate3d(${cursorOffset.x * 2}px, ${cursorOffset.y * 2 + scrollY * -0.06}px, 0)` : 'none',
+                            transform: 'translate3d(calc(var(--cx, 0) * 2px), calc(var(--sx, 0) * -0.06px + var(--cy, 0) * 2px), 0)',
                             transition: 'transform 0.2s ease-out',
                         }}
                     >

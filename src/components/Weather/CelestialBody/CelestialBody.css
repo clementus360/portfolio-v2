@@ -1,0 +1,190 @@
+/* The sun/moon cycle. Everything is anchored to a single point in the top-right
+   corner and centred on it, so the disc, its glow and any flare always agree on
+   where "the sun" is. Sits above the sky wash but below the hero copy (which is
+   z-4), and is pointer-transparent so it never interferes with the page. */
+.celestial {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 2;
+    /* Cross-fade as the weather (and therefore the cover-driven opacity) shifts. */
+    transition: opacity 1.2s ease;
+}
+
+.celestial__anchor {
+    position: absolute;
+    top: clamp(70px, 13vh, 155px);
+    right: clamp(58px, 11vw, 175px);
+    width: 0;
+    height: 0;
+}
+
+/* Each piece is centred on the anchor point via translate(-50%, -50%); growth is
+   driven by the standalone `scale` property so it composes with that centring
+   transform instead of clobbering it. */
+.celestial__glow,
+.celestial__disc,
+.celestial__moon,
+.celestial__flare-streak,
+.celestial__flare-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+
+/* ----------------------------- Sun ----------------------------- */
+.celestial__glow--sun {
+    width: clamp(280px, 38vw, 520px);
+    height: clamp(280px, 38vw, 520px);
+    border-radius: 50%;
+    background: radial-gradient(circle,
+            hsl(45 100% 92% / 0.7) 0%,
+            hsl(42 95% 80% / 0.32) 45%,
+            transparent 72%);
+    filter: blur(40px);
+    animation: celestialBreath 11s ease-in-out infinite alternate;
+}
+
+.celestial__disc--sun {
+    width: clamp(86px, 11vw, 150px);
+    height: clamp(86px, 11vw, 150px);
+    border-radius: 50%;
+    /* A solid white core that holds out to ~52% before falling off keeps the
+       sun reading as a defined disc rather than a faint smear. */
+    background: radial-gradient(circle,
+            hsl(48 100% 100% / 1) 0%,
+            hsl(46 100% 97% / 1) 38%,
+            hsl(44 98% 88% / 0.92) 58%,
+            hsl(42 94% 80% / 0.45) 78%,
+            transparent 100%);
+    filter: blur(2.5px);
+    animation: celestialPulse 9s ease-in-out infinite alternate;
+}
+
+/* ----------------------- Lens flare (clear day) ----------------------- */
+/* A shimmer streak through the sun plus a few translucent ghosts stepping down
+   toward the opposite corner — the classic lens-flare optical axis. */
+.celestial__flare-streak {
+    width: clamp(320px, 62vw, 860px);
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg,
+            transparent,
+            hsl(45 100% 97% / 0.8) 50%,
+            transparent);
+    filter: blur(1px);
+    transform: translate(-94%, -50%) rotate(18deg);
+    transform-origin: 100% 50%;
+    animation: celestialShimmer 12s ease-in-out infinite;
+}
+
+.celestial__flare-ring {
+    border-radius: 50%;
+    background: radial-gradient(circle,
+            transparent 34%,
+            hsl(45 100% 93% / 0.5) 62%,
+            hsl(44 95% 85% / 0.18) 80%,
+            transparent 100%);
+    filter: blur(2px);
+    animation: celestialShimmer 16s ease-in-out infinite;
+}
+
+.celestial__flare-ring--1 {
+    width: 64px;
+    height: 64px;
+    transform: translate(calc(-50% - 120px), calc(-50% + 92px));
+}
+
+.celestial__flare-ring--2 {
+    width: 120px;
+    height: 120px;
+    transform: translate(calc(-50% - 250px), calc(-50% + 188px));
+    animation-duration: 22s;
+    animation-direction: reverse;
+}
+
+.celestial__flare-ring--3 {
+    width: 38px;
+    height: 38px;
+    transform: translate(calc(-50% - 360px), calc(-50% + 270px));
+    animation-duration: 19s;
+}
+
+/* ----------------------------- Moon ----------------------------- */
+.celestial__glow--moon {
+    width: clamp(230px, 30vw, 420px);
+    height: clamp(230px, 30vw, 420px);
+    border-radius: 50%;
+    background: radial-gradient(circle,
+            hsl(210 70% 90% / 0.5) 0%,
+            hsl(215 55% 78% / 0.2) 45%,
+            transparent 72%);
+    filter: blur(40px);
+    /* Lighten-only so the halo brightens the sky without darkening it. */
+    mix-blend-mode: screen;
+    animation: celestialBreath 12s ease-in-out infinite alternate;
+}
+
+.celestial__moon {
+    width: clamp(78px, 10.5vw, 138px);
+    height: clamp(78px, 10.5vw, 138px);
+    /* `screen` drops the PNG's solid black background and blends the disc into
+       whatever night sky sits behind it — clear, cloudy or stormy. */
+    mix-blend-mode: screen;
+    animation: celestialPulse 14s ease-in-out infinite alternate;
+}
+
+.celestial__moon img {
+    border-radius: 50%;
+}
+
+/* ----------------------------- Motion ----------------------------- */
+/* `scale` (not `transform`) so the centring translate above is preserved. */
+@keyframes celestialPulse {
+    from {
+        scale: 1;
+        opacity: 0.96;
+    }
+
+    to {
+        scale: 1.05;
+        opacity: 1;
+    }
+}
+
+@keyframes celestialBreath {
+    from {
+        scale: 1;
+        opacity: 0.82;
+    }
+
+    to {
+        scale: 1.08;
+        opacity: 1;
+    }
+}
+
+@keyframes celestialShimmer {
+
+    0%,
+    100% {
+        opacity: 0.55;
+    }
+
+    50% {
+        opacity: 0.9;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .celestial__glow,
+    .celestial__disc,
+    .celestial__moon,
+    .celestial__flare-streak,
+    .celestial__flare-ring {
+        animation: none !important;
+    }
+}

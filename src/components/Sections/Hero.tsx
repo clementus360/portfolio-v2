@@ -480,7 +480,7 @@ export default function Hero() {
 
         applyScroll();
         window.addEventListener('scroll', handleScroll, { passive: true });
-        window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('mousemove', handleMouseMove, { passive: true });
         window.addEventListener('mouseleave', handleMouseLeave);
 
         return () => {

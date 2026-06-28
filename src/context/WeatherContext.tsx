@@ -1,5 +1,12 @@
 "use client";
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { normalizeWeather } from "@/utils/weatherAdapter";
 import { fetchWeather } from "@/utils/weatherApi";
 import type { WeatherData } from "@/utils/weatherCondition";
@@ -22,12 +29,41 @@ export function WeatherProvider({ children }: { children: React.ReactNode }) {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [theme, setTheme] = useState<Theme>("day");
 
-  // Fetch weather once on mount using user's location
-  useEffect(() => {
-    getUserLocationAndFetchWeather();
-  }, []);
+  const refreshWeather = useCallback(
+    async (city?: string, lat?: number, lon?: number) => {
+      try {
+        const data = await fetchWeather(city, lat, lon);
 
-  async function getUserLocationAndFetchWeather() {
+        console.log("Fetched weather data:", data);
+        const mappedWeather = normalizeWeather(data);
+
+        setWeather(mappedWeather);
+        setTheme(mappedWeather.isDay ? "day" : "night");
+
+        // Apply global theme to <html> in a single class swap so the browser
+        // does one style recalc instead of one per add/remove.
+        if (typeof document !== "undefined") {
+          const root = document.documentElement;
+          root.classList.toggle("day", mappedWeather.isDay);
+          root.classList.toggle("night", !mappedWeather.isDay);
+        }
+      } catch (err) {
+        console.error("Weather fetch failed", err);
+        // If not already using Kigali as fallback, try Kigali
+        if (city !== "Kigali" && (lat !== undefined || lon !== undefined)) {
+          console.warn("Retrying with fallback location: Kigali");
+          try {
+            await refreshWeather("Kigali");
+          } catch (fallbackErr) {
+            console.error("Fallback weather fetch also failed", fallbackErr);
+          }
+        }
+      }
+    },
+    [],
+  );
+
+  const getUserLocationAndFetchWeather = useCallback(() => {
     if (typeof navigator !== "undefined" && "geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
@@ -53,45 +89,25 @@ export function WeatherProvider({ children }: { children: React.ReactNode }) {
     } else {
       // Geolocation not supported: fallback to Kigali
       console.warn("Geolocation not supported, using fallback");
-      await refreshWeather("Kigali");
+      refreshWeather("Kigali");
     }
-  }
+  }, [refreshWeather]);
 
-  async function refreshWeather(city?: string, lat?: number, lon?: number) {
-    try {
-      const data = await fetchWeather(city, lat, lon);
+  // Fetch weather once on mount using the user's location.
+  useEffect(() => {
+    getUserLocationAndFetchWeather();
+  }, [getUserLocationAndFetchWeather]);
 
-      console.log("Fetched weather data:", data);
-      const mappedWeather = normalizeWeather(data);
-
-      setWeather(mappedWeather);
-      setTheme(mappedWeather.isDay ? "day" : "night");
-
-      // Apply global theme to <html>
-      if (typeof document !== "undefined") {
-        document.documentElement.classList.remove("day", "night");
-        document.documentElement.classList.add(
-          mappedWeather.isDay ? "day" : "night",
-        );
-      }
-    } catch (err) {
-      console.error("Weather fetch failed", err);
-      // If not already using Kigali as fallback, try Kigali
-      if (city !== "Kigali" && (lat !== undefined || lon !== undefined)) {
-        console.warn("Retrying with fallback location: Kigali");
-        try {
-          await refreshWeather("Kigali");
-        } catch (fallbackErr) {
-          console.error("Fallback weather fetch also failed", fallbackErr);
-        }
-      }
-    }
-  }
+  // Stable context value — only changes when the weather or theme actually
+  // changes, so consumers (and the weather particle systems) don't re-render on
+  // unrelated parent renders.
+  const value = useMemo(
+    () => ({ weather, theme, refreshWeather }),
+    [weather, theme, refreshWeather],
+  );
 
   return (
-    <WeatherContext.Provider value={{ weather, theme, refreshWeather }}>
-      {children}
-    </WeatherContext.Provider>
+    <WeatherContext.Provider value={value}>{children}</WeatherContext.Provider>
   );
 }
 

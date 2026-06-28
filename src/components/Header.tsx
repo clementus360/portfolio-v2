@@ -28,12 +28,30 @@ export default function Header() {
     };
 
     useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
+        let frame = 0;
+        let scrolled = false;
+
+        const update = () => {
+            frame = 0;
+            const next = window.scrollY > 50;
+            // Only re-render when the threshold is actually crossed, not on
+            // every scroll frame.
+            if (next !== scrolled) {
+                scrolled = next;
+                setIsScrolled(next);
+            }
         };
 
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
+        const handleScroll = () => {
+            if (frame) return;
+            frame = window.requestAnimationFrame(update);
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            if (frame) window.cancelAnimationFrame(frame);
+        };
     }, []);
 
     useEffect(() => {
