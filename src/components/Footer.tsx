@@ -23,7 +23,7 @@ const socialLinks = [
     },
     {
         label: "Mail",
-        href: "mailto:clementus360@gmail.com",
+        href: "mailto:clement@ishimwe.dev",
         icon: Mail,
     },
     {
