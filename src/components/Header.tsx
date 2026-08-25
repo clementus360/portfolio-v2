@@ -90,6 +90,7 @@ export default function Header() {
         { label: "Portfolio", href: "https://res.cloudinary.com/dpfonnjv3/image/upload/v1772527831/Design_Portfolio_compressed_qcltut.pdf", external: true },
         { label: "Resume", href: "https://res.cloudinary.com/dpfonnjv3/image/upload/v1772576497/Resume_x4kyun.pdf", external: true },
         { label: "QR Code Tool", href: "https://qr.ishimwe.dev", external: true },
+        { label: "Scholia (Bible Study Tool)", href: "https://bible.ishimwe.dev", external: true },
         { label: "GitHub", href: "https://github.com/clementus360", external: true },
         { label: "LinkedIn", href: "https://www.linkedin.com/in/clementus360", external: true },
         { label: "Behance", href: "https://www.behance.net/clementishimwe", external: true },
